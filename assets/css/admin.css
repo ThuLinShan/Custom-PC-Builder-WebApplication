@@ -1,0 +1,11 @@
+@media(max-width: 800px){
+    td img{
+        width: 60px;
+    }
+    .btn{
+        font-size: 12px;
+    }
+    td{
+        font-size: 12px;   
+    }
+}

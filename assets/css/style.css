@@ -1,0 +1,35 @@
+footer a {
+  text-decoration: none;
+  color: rgb(185, 185, 185);
+}
+footer a:hover {
+  color: rgb(255, 144, 54);
+}
+.fa-brands:hover {
+  color: rgb(255, 144, 54);
+}
+
+@media (max-width: 800px) {
+  h4 {
+    font-size: 15px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  td img {
+    width: 60px;
+  }
+  .btn {
+    font-size: 15px;
+  }
+  td {
+    font-size: 12px;
+  }
+  .alert strong,
+  span {
+    font-size: 12px;
+  }
+}
