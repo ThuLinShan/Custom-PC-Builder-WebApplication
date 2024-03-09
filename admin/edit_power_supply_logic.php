@@ -18,19 +18,19 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
 
 
     if (!$power_supply_name) {
-        $_SESSION['add-power_supply'] = "Please enter a power_supply_name";
+        $_SESSION['edit-power_supply'] = "Please enter a power_supply_name";
     } elseif (!$brand) {
-        $_SESSION['add-power_supply'] = "Please select the brand for the power_supply";
+        $_SESSION['edit-power_supply'] = "Please select the brand for the power_supply";
     } elseif (!$pcie) {
-        $_SESSION['add-power_supply'] = "Please enter the total number of PCIe slots in the power_supply";
+        $_SESSION['edit-power_supply'] = "Please enter the total number of PCIe slots in the power_supply";
     } elseif (!$dimension) {
-        $_SESSION['add-power_supply'] = "Please enter the physical dimension of the power_supply";
+        $_SESSION['edit-power_supply'] = "Please enter the physical dimension of the power_supply";
     } elseif (!$power) {
-        $_SESSION['add-power_supply'] = "Please enter the power consumption of the power_supply in Watt";
+        $_SESSION['edit-power_supply'] = "Please enter the power consumption of the power_supply in Watt";
     } elseif (!$price) {
-        $_SESSION['add-power_supply'] = "Please enter the price of the power_supply";
+        $_SESSION['edit-power_supply'] = "Please enter the price of the power_supply";
     } elseif (!$link) {
-        $_SESSION['add-power_supply'] = "Please enter the official link of the power_supply";
+        $_SESSION['edit-power_supply'] = "Please enter the official link of the power_supply";
     } else {
         // Delete existing img if new one is uploaded
         if ($img['name']) {
