@@ -48,19 +48,19 @@ require 'partials/header.php';
             <?php endif ?>
             <!-- alert message end -->
 
-            <form method="post" action="./add_prebuilt_logic.php" class="form-control border-0 mt-3 pb-5">
+            <form method="post" action="./add_prebuilt_logic.php" class="form-control border-1 mt-3 px-4 py-2 shadow-sm" enctype="multipart/form-data">
 
                 <label for="" class="fw-bold">Name</label>
                 <input type="text" class="form-control mb-3 " name="prebuilt_name" placeholder="Name" required>
 
-                <label for="" class="fw-bold">Thumbnail</label>
-                <input type="file" class="form-control mb-3 " name="img" required>
+                <label for="thumbnail" class="fw-bold">Thumbnail</label>
+                <input type="file" id="thumbnail" class="form-control mb-3 " name="img" required>
 
                 <label for="" class="fw-bold">Description</label>
                 <textarea name="description" id="" rows="5" class="form-control mb-3 " required></textarea>
 
                 <label for="free_shipping" class="fw-bold">Free Shipping</label>
-                <input id="free_shipping" name="free_shipping" class="mb-3 form-check" type="checkbox" value="1">
+                <input id="free_shipping" name="free_shipping" class="mb-3 form-check" type="checkbox" value="1" checked>
 
                 <label for="" class="fw-bold">Status</label>
                 <select name="status" class="form-select  mb-3" id="">
@@ -75,6 +75,7 @@ require 'partials/header.php';
 
                 <label for="" class="fw-bold">Price (£)</label>
                 <p class="p-2 text-info mb-1 rounded opacity-75">Default Price: £<span id="default_price"></span></p>
+                <input hidden name="default_price" id="default_price_input" type="number">
                 <input type="number" class="form-control mb-3 " name="price" placeholder="Official Price">
 
                 <!-- Motherboard -->
@@ -89,7 +90,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="motherboard_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="motherboard_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="motherboard_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
 
                         <?php if (isset($_GET['config']) && $_GET['config'] == 'intel') : ?>
                             <?php
@@ -133,7 +134,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="cpu_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="cpu_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="cpu_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php if (isset($_GET['config']) && $_GET['config'] == 'intel') : ?>
                             <?php
                             // Fetch cpus
@@ -176,10 +177,11 @@ require 'partials/header.php';
                     <div class="col-lg-4 col-md-6 my-3">
                         <h4 class="mb-3 text-info-emphasis" id="gpu_name">Product Name</h4>
                         <p class="p-0 m-0">VRAM: <span id="gpu_capacity"></span> GB</p>
+                        <p class="p-0 m-0">Power: <span id="gpu_power"></span> Watt</p>
                         <p class="p-0 m-0">Price: £<span class="price" id="gpu_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="gpu_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="gpu_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch gpus
                         $query = "SELECT gpu.id, gpu.gpu_name, gpu.img
@@ -206,7 +208,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="operating_system_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="operating_system_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="operating_system_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch operating_systems
                         $query = "SELECT operating_system.id, operating_system.operating_system_name, operating_system.img
@@ -234,7 +236,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="ram_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="ram_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="ram_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch rams
                         $query = "SELECT id, ram_name, img 
@@ -262,7 +264,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="primary_storage_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="primary_storage_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="primary_storage_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch primary_storages
                         $query = "SELECT id, storage_name, img 
@@ -290,7 +292,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="secondary_storage_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="secondary_storage_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="secondary_storage_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch secondary_storages
                         $query = "SELECT id, storage_name, img 
@@ -319,7 +321,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="power_supply_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="power_supply_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="power_supply_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch power_supplys
                         $query = "SELECT power_supply.id, power_supply.power_supply_name, power_supply.img
@@ -349,7 +351,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="desktop_case_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="desktop_case_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="desktop_case_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch desktop_cases
                         $query = "SELECT desktop_case.id, desktop_case.desktop_case_name, desktop_case.img
@@ -377,7 +379,7 @@ require 'partials/header.php';
                         <p class="p-0 m-0">Price: £<span class="price" id="cooler_price"></span></p>
                     </div>
                     <div class="col-lg-4 col-md-12 pb-3">
-                        <a id="cooler_details" href="" class="form-control btn btn-outline-primary mb-3">Details</a>
+                        <a id="cooler_details" href="" class="form-control btn btn-outline-info mb-3">Details</a>
                         <?php
                         // Fetch coolers
                         $query = "SELECT id, cooler_name, img
@@ -393,7 +395,7 @@ require 'partials/header.php';
                 </div>
                 <!-- cooler end -->
                 <div class="row mt-5">
-                    <button name="submit" type="submit" class="btn btn-lg shadow btn-primary rounded-0 border-1 form-control mt-2">Add Prebuilt PC</button>
+                    <button name="submit" type="submit" class="btn btn-lg btn-info text-white rounded-0 border-1 form-control mt-2">Add Prebuilt PC</button>
                 </div>
             </form>
 
@@ -406,6 +408,23 @@ require 'partials/header.php';
         </div>
     <?php endif ?>
 
+    <!-- Modal HTML -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Warning</h5>
+                </div>
+                <div class="modal-body">
+                    Please select a power supply with more Wattage for better experience.
+                </div>
+                <div class="modal-footer">
+                    <p>Press 'Esc' to close the message popup.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 
@@ -414,111 +433,178 @@ require 'partials/header.php';
 <script>
     $('#default_price').ready(function() {
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#motherboard').ready(function() {
         onmotherboardChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get motherboard on select change
     $('#motherboard').change(function() {
         onmotherboardChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#cpu').ready(function() {
         oncpuChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get cpu on select change
     $('#cpu').change(function() {
         oncpuChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#gpu').ready(function() {
         ongpuChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get gpu on select change
     $('#gpu').change(function() {
         ongpuChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#operating_system').ready(function() {
         onoperating_systemChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get operating_system on select change
     $('#operating_system').change(function() {
         onoperating_systemChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#ram').ready(function() {
         onramChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get ram on select change
     $('#ram').change(function() {
         onramChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#primary_storage').ready(function() {
         onprimary_storageChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get primary_storage on select change
     $('#primary_storage').change(function() {
         onprimary_storageChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#secondary_storage').ready(function() {
         onsecondary_storageChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get secondary_storage on select change
     $('#secondary_storage').change(function() {
         onsecondary_storageChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#power_supply').ready(function() {
         onpower_supplyChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get power_supply on select change
     $('#power_supply').change(function() {
         onpower_supplyChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#desktop_case').ready(function() {
         ondesktop_caseChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get desktop_case on select change
     $('#desktop_case').change(function() {
         ondesktop_caseChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get data on load
     $('#cooler').ready(function() {
         oncoolerChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
     // get cooler on select change
     $('#cooler').change(function() {
         oncoolerChange();
         calculateTotal();
+        updateDefaultPriceInput();
     });
 
 
 
+    //check power
+    $(document).ready(function() {
+        // Function to calculate the total power consumption
+        function calculateTotalPower() {
+            var cpuPower = parseInt($('#cpu_power').text());
+            var gpuPower = parseInt($('#gpu_power').text());
 
+            var totalPower = cpuPower + gpuPower;
+            return totalPower;
+        }
+
+        // Function to compare total power consumption with power supply power
+        function checkPowerConsumption() {
+            var totalPower = calculateTotalPower();
+            var powerSupplyPower = parseInt($('#power_supply_power').text());
+
+            var threshold = 0.7; // 70%
+            if (totalPower > threshold * powerSupplyPower) {
+                $('#myModal').modal('show'); // Show the modal
+            }
+        }
+
+        // Initial check
+        checkPowerConsumption();
+
+        // Observe changes to spans
+        var observer = new MutationObserver(function(mutationsList, observer) {
+            checkPowerConsumption();
+        });
+
+        observer.observe(document.getElementById('cpu_power'), {
+            subtree: true,
+            characterData: true,
+            childList: true
+        });
+        observer.observe(document.getElementById('gpu_power'), {
+            subtree: true,
+            characterData: true,
+            childList: true
+        });
+        observer.observe(document.getElementById('power_supply_power'), {
+            subtree: true,
+            characterData: true,
+            childList: true
+        });
+    });
+    //check power end
 
     function calculateTotal() {
         var sum = 0;
@@ -571,7 +657,7 @@ require 'partials/header.php';
             $("#cpu_details").attr("href", "<?= ROOT_URL ?>details/cpu_details.php?id=" + data.id)
 
             $('#cpu').change(function() {
-                oncpuChange()
+                oncpuChange();
             });
         });
     }
@@ -588,12 +674,13 @@ require 'partials/header.php';
             data = JSON.parse(data);
             $("#gpu_name").html(data.gpu_name);
             $("#gpu_capacity").html(data.vram);
+            $("#gpu_power").html(data.power);
             $("#gpu_price").text(data.price);
             $("#gpu_img").attr("src", "<?= ROOT_URL ?>assets/images/products/gpu/" + data.img)
             $("#gpu_details").attr("href", "<?= ROOT_URL ?>details/gpu_details.php?id=" + data.id)
 
             $('#gpu').change(function() {
-                ongpuChange()
+                ongpuChange();
             });
         });
     }
@@ -762,7 +849,24 @@ require 'partials/header.php';
             });
         });
     }
+
+    // Function to update default_price_input value
+    function updateDefaultPriceInput() {
+        var defaultPriceValue = document.getElementById('default_price').innerText;
+        document.getElementById('default_price_input').value = defaultPriceValue;
+        $('#default_price_input').ready(function() {
+            updateDefaultPriceInput()
+        });
+    }
+
+    // Initial update
+    updateDefaultPriceInput();
 </script>
+
+<script>
+
+</script>
+
 <!-- Javascript queries end -->
 
 <?php

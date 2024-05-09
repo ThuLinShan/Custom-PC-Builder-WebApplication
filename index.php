@@ -229,8 +229,8 @@ $brands = mysqli_query($connection, $query);
     </div>
 
     <div class="container mb-5">
-        <div id="carouselExampleFade" class="carousel border slide py-3 rounded-3">
-            <div class="carousel-inner px-5">
+        <div id="carouselExampleFade" class="carousel border slide py-1 rounded-3">
+            <div class="carousel-inner px-1">
                 <div class="carousel-item active">
                     <div style="height: 100px;" class="d-flex justify-content-center text-center align-items-center">
                         <h3>Popular Brands</h3>
@@ -244,11 +244,11 @@ $brands = mysqli_query($connection, $query);
                     </div>
                 <?php endwhile; ?>
             </div>
-            <button class="carousel-control-prev bg-black rounded" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <button class="carousel-control-prev bg-black rounded" style="width: 50px;" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next bg-black rounded" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <button class="carousel-control-next bg-black rounded" style="width: 50px;" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>

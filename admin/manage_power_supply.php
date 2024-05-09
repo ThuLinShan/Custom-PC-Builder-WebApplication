@@ -28,7 +28,7 @@ $brand_id;
             <div class="col-md-6 ">
                 <h3>Power Supply</h3>
             </div>
-            <a class="col-md-6 btn btn-dark px-4" href="./power_supply.php">Add new power supply</a>
+            <a class="col-md-6 btn btn-dark px-4" href="./add_power_supply.php">Add new power supply</a>
         </div>
 
         <!-- alet message -->

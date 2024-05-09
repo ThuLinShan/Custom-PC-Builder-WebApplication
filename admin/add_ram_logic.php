@@ -3,7 +3,7 @@ require 'config/database.php';
 
 if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true) {
     $ram_name   = filter_var($_POST['ram_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $brand = filter_var($_POST['brand'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $brand = filter_var($_POST['brand'], FILTER_SANITIZE_NUMBER_INT);
     $img                = $_FILES['img'];
     $capacity = filter_var($_POST['capacity'], FILTER_SANITIZE_NUMBER_INT);
     $frequency = filter_var($_POST['frequency'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);

@@ -5,8 +5,6 @@ include './partials/header.php';
 $query = "SELECT id,prebuilt_name,stock FROM prebuilt ORDER BY prebuilt_name";
 $prebuilts = mysqli_query($connection, $query);
 
-$brand;
-$brand_id;
 ?>
 
 <main>
@@ -70,7 +68,6 @@ $brand_id;
             <table class="table text-center">
                 <thead>
                     <tr>
-                        <th>Brand</th>
                         <th>Stock</th>
                         <th>Name</th>
                         <th>Manage</th>
@@ -79,13 +76,7 @@ $brand_id;
                 <tbody>
                     <?php while ($prebuilt = mysqli_fetch_assoc($prebuilts)) : ?>
                         <tr class="align-middle">
-                            <!-- fetch brand with id -->
-                            <?php
-                            $brand_id = $prebuilt['brand'];
-                            $query = "SELECT brand_name FROM brand WHERE id=$brand_id";
-                            $brand = mysqli_fetch_assoc(mysqli_query($connection, $query));
-                            ?>
-                            <td><?= $brand['brand_name'] ?></td>
+
                             <?php if ($prebuilt['stock'] <= 5) : ?>
                                 <td class="text-danger fw-bold"><?= $prebuilt['stock'] ?></td>
                             <?php else : ?>
