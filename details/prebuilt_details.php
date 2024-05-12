@@ -86,7 +86,7 @@ if (isset($_GET['id'])) {
                     <?php if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true) : ?>
                         <div class="container d-flex justify-content-center ms-0 px-0 mt-3">
                             <a href="<?= ROOT_URL ?>admin/edit_prebuilt.php?id=<?= $prebuilt['id'] ?>&config=<?= strtolower($motherboard['chipset']) ?>" class="btn form-control mx-1 btn-dark">Edit</a>
-                            <a href="<?= ROOT_URL ?>admin/delete_prebuilt.php?id=<?= $id ?>" class="btn form-control mx-1 btn-danger">Delete</a>
+                            <a href="<?= ROOT_URL ?>admin/delete_prebuilt.php?id=<?= $prebuilt['id'] ?>" class="btn form-control mx-1 btn-danger">Delete</a>
                         </div>
                     <?php endif ?>
                     <div class="container d-flex flex-column justify-content-center text-center border align-items-center mt-5 p-2">
