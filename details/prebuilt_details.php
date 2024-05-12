@@ -7,59 +7,62 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($connection, $query);
     $prebuilt = mysqli_fetch_assoc($result);
 
-    //os
-    $id = $prebuilt['os'];
-    $query = "SELECT * FROM operating_system WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $os = mysqli_fetch_assoc($result);
+    if (isset($prebuilt)) {
 
-    //cpu
-    $id = $prebuilt['cpu'];
-    $query = "SELECT * FROM cpu WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $cpu = mysqli_fetch_assoc($result);
+        //os
+        $id = $prebuilt['os'];
+        $query = "SELECT * FROM operating_system WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $os = mysqli_fetch_assoc($result);
 
-    //gpu
-    $id = $prebuilt['gpu'];
-    $query = "SELECT * FROM gpu WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $gpu = mysqli_fetch_assoc($result);
+        //cpu
+        $id = $prebuilt['cpu'];
+        $query = "SELECT * FROM cpu WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $cpu = mysqli_fetch_assoc($result);
 
-    //ram
-    $id = $prebuilt['ram'];
-    $query = "SELECT * FROM memory WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $ram = mysqli_fetch_assoc($result);
+        //gpu
+        $id = $prebuilt['gpu'];
+        $query = "SELECT * FROM gpu WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $gpu = mysqli_fetch_assoc($result);
 
-    //primary
-    $id = $prebuilt['primary_storage'];
-    $query = "SELECT * FROM storage WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $primary_storage = mysqli_fetch_assoc($result);
+        //ram
+        $id = $prebuilt['ram'];
+        $query = "SELECT * FROM memory WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $ram = mysqli_fetch_assoc($result);
 
-    //secondary
-    $id = $prebuilt['secondary_storage'];
-    $query = "SELECT * FROM storage WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $secondary_storage = mysqli_fetch_assoc($result);
+        //primary
+        $id = $prebuilt['primary_storage'];
+        $query = "SELECT * FROM storage WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $primary_storage = mysqli_fetch_assoc($result);
 
-    //motherboard
-    $id = $prebuilt['motherboard'];
-    $query = "SELECT * FROM motherboard WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $motherboard = mysqli_fetch_assoc($result);
+        //secondary
+        $id = $prebuilt['secondary_storage'];
+        $query = "SELECT * FROM storage WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $secondary_storage = mysqli_fetch_assoc($result);
 
-    //case
-    $id = $prebuilt['desktop_case'];
-    $query = "SELECT * FROM desktop_case WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $desktop_case = mysqli_fetch_assoc($result);
+        //motherboard
+        $id = $prebuilt['motherboard'];
+        $query = "SELECT * FROM motherboard WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $motherboard = mysqli_fetch_assoc($result);
 
-    //power supply
-    $id = $prebuilt['power_supply'];
-    $query = "SELECT * FROM power_supply WHERE id = $id";
-    $result = mysqli_query($connection, $query);
-    $power_supply = mysqli_fetch_assoc($result);
+        //case
+        $id = $prebuilt['desktop_case'];
+        $query = "SELECT * FROM desktop_case WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $desktop_case = mysqli_fetch_assoc($result);
+
+        //power supply
+        $id = $prebuilt['power_supply'];
+        $query = "SELECT * FROM power_supply WHERE id = $id";
+        $result = mysqli_query($connection, $query);
+        $power_supply = mysqli_fetch_assoc($result);
+    }
 }
 ?>
 
@@ -79,13 +82,29 @@ if (isset($_GET['id'])) {
         <div class="container my-5 p-5 border rounded">
             <div class="row">
                 <div class="col-lg-7">
-                    <img src="<?= ROOT_URL ?>assets/images/products/prebuilt/<?= $prebuilt['img'] ?>" alt="" class="w-100 img-fluid">
+                    <img src="<?= ROOT_URL ?>assets/images/products/prebuilt/<?= $prebuilt['img'] ?>" alt="" class="w-100 py-5 bg-secondary-subtle img-fluid">
                     <?php if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true) : ?>
-                        <div class="container d-flex justify-content-center ms-0 ps-0 mt-2">
-                            <a href="<?= ROOT_URL ?>admin/edit_prebuilt.php?id=<?= $id ?>" class="btn form-control mx-1 btn-dark">Edit</a>
+                        <div class="container d-flex justify-content-center ms-0 px-0 mt-3">
+                            <a href="<?= ROOT_URL ?>admin/edit_prebuilt.php?id=<?= $prebuilt['id'] ?>&config=<?= strtolower($motherboard['chipset']) ?>" class="btn form-control mx-1 btn-dark">Edit</a>
                             <a href="<?= ROOT_URL ?>admin/delete_prebuilt.php?id=<?= $id ?>" class="btn form-control mx-1 btn-danger">Delete</a>
                         </div>
                     <?php endif ?>
+                    <div class="container d-flex flex-column justify-content-center text-center border align-items-center mt-5 p-2">
+                        <h4 class="pt-2 small">
+                            Certified by Thu Lin Shan standard specifications <img src="../assets/images/logos/logo.png" width="50px" alt="">
+                        </h4>
+                    </div>
+                    <div class="container d-flex flex-column justify-content-center text-center border align-items-center bg-secondary-subtle p-2">
+                        <p class="small">
+                            This product is built with quality components which meet the ideal standard of <code>thulinshan</code> standard qualifications.
+                        <ul class="small text-start">
+                            <li>Reliable</li>
+                            <li>Great Performance</li>
+                            <li>Durable</li>
+                            <li>User requirements met</li>
+                        </ul>
+                        </p>
+                    </div>
                 </div>
                 <div class="col-lg-5 d-flex px-4">
                     <div class="mt-3 d-flex flex-column border-1 border-start ps-3">
@@ -95,13 +114,17 @@ if (isset($_GET['id'])) {
                             <p class="d-flex gap-3 mb-3 pb-0">
                                 <?= $prebuilt['description'] ?>
                             </p>
-                            <p class="text-white p-1 bg-secondary">Stock: <span><?= $prebuilt['stock'] ?></span> | Created Date: <span><?= $prebuilt['date'] ?></span></p>
+                            <p class="text-white p-1 bg-secondary">| Built Date: <span><?= $prebuilt['date'] ?></span></p>
                             <?php if ($prebuilt['status'] !== "None") : ?>
                                 <p class="text-white w-25 p-1 bg-info">
                                     <?= $prebuilt['status'] ?>
                                 </p>
                             <?php endif; ?>
+                            <h5 class="text-success p-1">Stock: <span><?= $prebuilt['stock'] ?></span> </h5>
 
+                        </div>
+                        <div class="py-2 mb-3 border-1 border-bottom">
+                            <h4>Price: $ <?= $prebuilt['price'] ?></h4>
                         </div>
                         <div>
                             <p><i class="fa-solid fs-4 m-1 text-secondary fa-wrench"></i>_

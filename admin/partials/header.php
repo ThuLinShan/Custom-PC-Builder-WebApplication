@@ -40,7 +40,7 @@ $avatar = mysqli_fetch_assoc($result);
 
     <!-- header start here -->
     <header>
-        <nav class="navbar navbar-expand-lg bg-white" style="font-size: large;">
+        <nav class="navbar navbar-expand-lg bg-white px-5" style="font-size: large;">
             <div class="container-fluid">
                 <a class="navbar-brand img-fluid" href="<?= ROOT_URL ?>"><img src="<?= ROOT_URL ?>/assets/images/logos/logo.png" width="100px" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

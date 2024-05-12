@@ -2,7 +2,7 @@
 include './partials/header.php';
 
 // Fetch prebuilts
-$query = "SELECT id,prebuilt_name,stock FROM prebuilt ORDER BY prebuilt_name";
+$query = "SELECT id,prebuilt_name,stock, motherboard FROM prebuilt ORDER BY prebuilt_name";
 $prebuilts = mysqli_query($connection, $query);
 
 ?>
@@ -85,14 +85,21 @@ $prebuilts = mysqli_query($connection, $query);
                             <td><?= $prebuilt['prebuilt_name'] ?></td>
                             <td>
                                 <a class="btn btn-primary mb-1" style="width: 80px;" href="<?= ROOT_URL ?>details/prebuilt_details.php?id=<?= $prebuilt['id'] ?>">Details</a>
-                                <a class="btn btn-secondary " style="width: 80px;" href="./edit_prebuilt.php?id=<?= $prebuilt['id'] ?>" class="btn sm">Edit</a>
+                                <?php
+                                //motherboard
+                                $motherboardid = $prebuilt['motherboard'];
+                                $query = "SELECT * FROM motherboard WHERE id = $motherboardid";
+                                $result = mysqli_query($connection, $query);
+                                $motherboard = mysqli_fetch_assoc($result);
+                                ?>
+                                <a class="btn btn-secondary " style="width: 80px;" href="./edit_prebuilt.php?id=<?= $prebuilt['id'] ?>&config=<?= strtolower($motherboard['chipset']) ?>">Edit</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         <?php else : ?>
-            <div class="alert__message error d-flex justify-content-center align-items-center py-5 my-5">
+            <div class=" alert__message error d-flex justify-content-center align-items-center py-5 my-5">
                 <h4> "No prebuilts found" </h4>
             </div>
         <?php endif ?>

@@ -37,7 +37,7 @@ if (isset($_SESSION['user-id'])) {
             <button type="button" class="btn-close bg-white p-2 mt-3 me-2 rounded-5" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <nav class="navbar navbar-expand-lg bg-white" style="font-size: large;">
+        <nav class="navbar navbar-expand-lg bg-white px-5 pt-3" style="font-size: large;">
             <div class="container-fluid">
                 <a class="navbar-brand img-fluid" href="<?= ROOT_URL ?>"><img src="<?= ROOT_URL ?>assets/images/logos/logo.png" width="100px" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

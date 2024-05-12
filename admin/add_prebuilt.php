@@ -395,7 +395,7 @@ require 'partials/header.php';
                 </div>
                 <!-- cooler end -->
                 <div class="row mt-5">
-                    <button name="submit" type="submit" class="btn btn-lg btn-info text-white rounded-0 border-1 form-control mt-2">Add Prebuilt PC</button>
+                    <button name="submit" type="submit" class="btn btn-lg btn-dark text-white rounded-0 border-1 form-control mt-2">Add New</button>
                 </div>
             </form>
 
