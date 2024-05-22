@@ -53,7 +53,7 @@ $avatar = mysqli_fetch_assoc($result);
                                 Desktop PCs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Prebuilt PCs</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -66,7 +66,7 @@ $avatar = mysqli_fetch_assoc($result);
                                 Laptops
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Gaming Laptops</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">Gaming Laptops</a></li>
                                 <li><a class="dropdown-item" href="#">Office use</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

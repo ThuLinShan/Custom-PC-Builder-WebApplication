@@ -37,7 +37,7 @@ if (isset($_SESSION['user-id'])) {
             <button type="button" class="btn-close bg-white p-2 mt-3 me-2 rounded-5" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <nav class="navbar navbar-expand-lg bg-white px-5 pt-3" style="font-size: large;">
+        <nav class="navbar navbar-expand-lg bg-white px-5" style="font-size: large;">
             <div class="container-fluid">
                 <a class="navbar-brand img-fluid" href="<?= ROOT_URL ?>"><img src="<?= ROOT_URL ?>assets/images/logos/logo.png" width="100px" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@ if (isset($_SESSION['user-id'])) {
                                 Desktop PCs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Prebuilt PCs</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -63,7 +63,7 @@ if (isset($_SESSION['user-id'])) {
                                 Laptops
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Gaming Laptops</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">Gaming Laptops</a></li>
                                 <li><a class="dropdown-item" href="#">Office use</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

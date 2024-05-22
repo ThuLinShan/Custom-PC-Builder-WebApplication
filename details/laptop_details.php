@@ -51,6 +51,22 @@ if (isset($_GET['id'])) {
                             </div>
                         <?php endif ?>
                     </div>
+                    <div class="container d-flex flex-column justify-content-center text-center border align-items-center mt-5 p-2">
+                        <h4 class="pt-2 small">
+                            Certified by Thu Lin Shan standard specifications <img src="../assets/images/logos/logo.png" width="50px" alt="">
+                        </h4>
+                    </div>
+                    <div class="container d-flex flex-column justify-content-center text-center border align-items-center bg-secondary-subtle p-2">
+                        <p class="small">
+                            This product is built with quality components which meet the ideal standard of <code>thulinshan</code> standard qualifications.
+                        <ul class="small text-start">
+                            <li>Reliable</li>
+                            <li>Great Performance</li>
+                            <li>Durable</li>
+                            <li>User requirements met</li>
+                        </ul>
+                        </p>
+                    </div>
 
                 </div>
                 <div class="col-md-7 d-flex flex-column justify-content-center align-items-center">
