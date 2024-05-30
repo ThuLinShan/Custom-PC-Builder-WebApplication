@@ -50,7 +50,7 @@ unset($_SESSION['signin-data']);
         <!-- form end -->
         <div class="mt-4 d-flex gap-2">
             <p class="p-0 m-0">Don't have an account? </p>
-            <a href="./signup.php">Create an account</a>
+            <a href="./signup.php">Register</a>
         </div>
     </div>
 </main>

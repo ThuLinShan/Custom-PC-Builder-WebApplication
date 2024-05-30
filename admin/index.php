@@ -330,18 +330,18 @@ $brands = mysqli_query($connection, $query);
                                             <td class=" ">Main Banners</td>
                                             <td class=" ">Home</td>
                                             <td>
-                                                <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_motherboard.php">Manage</a>
+                                                <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_main_banner.php">Manage</a>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
-                                            <td class=" ">Second Banners</td>
+                                            <td class=" ">Secondary Banners</td>
                                             <td class=" ">Home</td>
                                             <td>
-                                                <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_operating_system.php">Manage</a>
+                                                <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_secondary_banner.php">Manage</a>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
-                                            <td class=" ">Products Banners</td>
+                                            <td class=" ">Product Banners</td>
                                             <td class=" ">Products</td>
                                             <td>
                                                 <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_cpu.php">Manage</a>
