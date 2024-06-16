@@ -8,6 +8,31 @@ $brands = mysqli_query($connection, $query);
 //Main banners
 $query = "SELECT * FROM banners where type = 'main'";
 $main_banners = mysqli_query($connection, $query);
+//Second banners
+$query = "SELECT * FROM banners where type = 'secondary' and sub_type='main'";
+$result = mysqli_query($connection, $query);
+if (mysqli_num_rows($result) == 1) {
+    $secondary_main = mysqli_fetch_assoc($result);
+}
+
+$query = "SELECT * FROM banners where type = 'secondary' and sub_type='sub'";
+$result = mysqli_query($connection, $query);
+if (mysqli_num_rows($result) == 1) {
+    $sub_main = mysqli_fetch_assoc($result);
+}
+
+$query = "SELECT * FROM banners where type = 'secondary' and sub_type='mini1'";
+$result = mysqli_query($connection, $query);
+if (mysqli_num_rows($result) == 1) {
+    $secondary_mini1 = mysqli_fetch_assoc($result);
+}
+
+$query = "SELECT * FROM banners where type = 'secondary' and sub_type='mini2'";
+$result = mysqli_query($connection, $query);
+if (mysqli_num_rows($result) == 1) {
+    $secondary_mini2 = mysqli_fetch_assoc($result);
+}
+
 
 $banner_loop = 1;
 ?>
@@ -41,39 +66,39 @@ $banner_loop = 1;
             <div class="row">
                 <div class="col-md-6 ">
                     <div>
-                        <div class="card text-dark">
-                            <img src="https://placehold.co/500x500" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is some text and this is more text.</p>
+                        <div class="card border-3 text-center">
+                            <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_main['img'] ?>" class="card-img" alt="...">
+                            <div class="card-img-overlay text-white">
+                                <h5 class="card-title bg-dark text-white p-2 rounded">Card title</h5>
+                                <p class="card-text bg-dark text-white p-2 rounded">This is some text and this is more text.</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 gap-3 gap-md-0">
                     <div class="row gap-3 gap-md-0">
-                        <div class="col-md-6 ">
-                            <div class="card text-dark">
-                                <img src="https://placehold.co/500x500" class="card-img" alt="...">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
+                        <div class="col-md-6">
+                            <div class="card border-3 text-center">
+                                <img src="<?= ROOT_URL . 'assets/images/banners/' . $sub_main['img'] ?>" class="card-img" alt="...">
+                                <div class="card-img-overlay text-white">
+                                    <h5 class="card-title bg-dark text-white p-2 rounded">Card title</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 ">
-                            <div class="card text-dark">
-                                <img src="https://placehold.co/500x500" class="card-img" alt="...">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
+                            <div class="card border-3 text-center">
+                                <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_mini1['img'] ?>" class="card-img" alt="...">
+                                <div class="card-img-overlay text-white">
+                                    <h5 class="card-title bg-dark text-white p-2 rounded">Card title</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <div class="card text-dark">
-                            <img src="https://placehold.co/400x200" class="card-img" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Card title</h5>
+                        <div class="card border-3 text-center">
+                            <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_mini2['img'] ?>" class="card-img" alt="...">
+                            <div class="card-img-overlay text-white">
+                                <h5 class="card-title bg-dark text-white p-2 rounded">Card title</h5>
                             </div>
                         </div>
                     </div>

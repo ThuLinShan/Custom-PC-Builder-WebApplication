@@ -82,8 +82,7 @@ $avatar = mysqli_fetch_assoc($result);
                                 Blogs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My blogs</a></li>
-                                <li><a class="dropdown-item" href="#">Discover blogs</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "blogs.php?page=1&size=8" ?>">Discover blogs</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

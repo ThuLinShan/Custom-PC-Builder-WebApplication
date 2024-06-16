@@ -43,9 +43,6 @@ if ($result) {
         <h2 class="text-center">
             Products Browse
         </h2>
-        <div class="row mb-5">
-            <img src="https://placehold.co/1000x300" class="img-fluid" alt="">
-        </div>
         <div class="d-flex justify-content-between align-items-center">
             <p class="text-danger">Total results: <span><?= $count ?></span></p>
             <div>

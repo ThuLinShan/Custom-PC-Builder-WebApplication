@@ -80,7 +80,6 @@ $brand_id;
                                 <p><?= $banner['date'] ?></p>
                             </div>
                             <div>
-                                <a class="btn btn-danger" href="./delete_banner_logic.php?id=<?= $banner['id'] ?>">Delete</a>
                                 <a class="btn btn-secondary" href="./edit_banner.php?id=<?= $banner['id'] ?>">Edit</a>
                             </div>
                         </div>

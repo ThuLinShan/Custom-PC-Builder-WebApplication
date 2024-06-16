@@ -1,5 +1,15 @@
 <?php
 include './partials/header.php';
+
+$query = "SELECT * FROM blog ORDER BY date";
+$blogs =  mysqli_query($connection, $query);
+
+$query = "SELECT * FROM blog WHERE is_featured = 1 LIMIT 1";
+$result =  mysqli_query($connection, $query);
+$featured = mysqli_fetch_assoc($result);
+
+$featured_description = htmlspecialchars_decode($featured['description'], ENT_QUOTES);
+
 ?>
 <main class="bg-white">
 
@@ -17,247 +27,72 @@ include './partials/header.php';
 
         <div class="row w-100">
 
-            <h3 class="text-secondary mx-3">Featured Post</h3>
-            <div class="row mb-4 pb-5 mx-auto">
-                <div class="col-md-6 col-sm-12">
-                    <a href="./blog.php"><img src="./assets/images/banner/banner-1.jpg" alt="" class="img-fluid"></a>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div>
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <p class="text-secondary">By User@123 | </p>
-
-                            <p class="text-secondary"> January 15, 2022</p>
-                        </div>
+            <?php if (isset($featured)) : ?>
+                <?php
+                //author
+                $featured_author_id = $featured['author'];
+                $query = "SELECT * FROM users WHERE id=$featured_author_id";
+                $result = mysqli_query($connection, $query);
+                $featured_author = mysqli_fetch_assoc($result);
+                ?>
+                <h3 class="text-secondary mx-3">Featured Post</h3>
+                <div class="row mb-4 pb-5 mx-auto">
+                    <div class="col-md-6 col-sm-12">
+                        <a href="./blog.php"><img src="<?= ROOT_URL . '/assets/images/blogs/' . $featured['img'] ?>" alt="" class="img-fluid"></a>
                     </div>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia nesciunt totam corrupti
-                        iusto recusandae ea nisi aperiam omnis, repudiandae deserunt blanditiis? Delectus harum amet
-                        aspernatur nemo commodi quisquam assumenda necessitatibus reiciendis, soluta enim ad magni
-                        vitae ipsa corporis pariatur tempore. Omnis enim assumenda amet voluptatibus impedit id,
-                        dicta nesciunt debitis...</p>
-                    <a href="./blog.php" class="btn btn-info shadow border border-white text-white mb-2">Read More
-                        <i class="fa fa-long-arrow-right"></i></a>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                    <div class="col-md-6 col-sm-12">
                         <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
+                            <h5 class="card-title"> <?= $featured['header'] ?></h5>
+                            <div>
+                                <div class="d-flex align-items-center my-2">
+                                    <p class="text-secondary mb-0 me-3">By <?= $featured_author['username'] ?> | </p>
+                                    <img src="<?= ROOT_URL . '/assets/images/avatars/' . $featured_author['avatar'] ?>" style="border-radius: 50%; padding:2px; overflow:hidden;object-fit: cover;" alt="" width="40px" height="40px">
+                                </div>
 
-                            <small class="text-secondary"> January 15, 2022</small>
+                                <?= date("M d, Y - h:i a", strtotime($featured['date'])) ?>
+                            </div>
                         </div>
+                        <p><?= substr($featured_description, 0, 500) ?>...</p>
+                        <a href="./details/blog_details.php?id=<?= $featured['id'] ?>" class="btn btn-info shadow border border-white text-white mb-2">Read More
+                            <i class="fa fa-long-arrow-right"></i></a>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
                 </div>
-            </div>
+            <?php endif ?>
 
+            <?php while ($blog = mysqli_fetch_assoc($blogs)) : ?>
+                <?php
+                $description = htmlspecialchars_decode($blog['description'], ENT_QUOTES);
+                $author_id = $blog['author'];
+                $query = "SELECT * FROM users WHERE id=$author_id";
+                $result =  mysqli_query($connection, $query);
+                $author = mysqli_fetch_assoc($result);
+                $description = htmlspecialchars_decode($blog['description'], ENT_QUOTES);
+                ?>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
+                    <div class="card w-100 h-100">
+                        <a href="./blog.php">
+                            <img src="./assets/images/blogs/<?= $blog['img'] ?>" class="card-img-top w-100 img-fluid" alt="..."></a>
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $blog['header'] ?></h5>
+                            <div>
+                                <img src="<?= ROOT_URL . '/assets/images/avatars/' . $author['avatar'] ?>" style="border-radius: 50%; padding:2px; overflow:hidden;object-fit: cover;" alt="" width="40px" height="40px">
+                                <small class="text-secondary"><?= $author['username'] ?></small>
 
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
+                                <small class="text-secondary"> <?= date("M d, Y - h:i a", strtotime($blog['date'])) ?></small>
+                            </div>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <small class="text-secondary"><?= substr($description, 0, 300) ?>...</small>
+                            </li>
+                            <li class="list-group-item d-flex flex-column justify-content-center">
+                                <a href="./details/blog_details.php?id=<?= $blog['id'] ?>" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
                 </div>
-            </div>
 
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 my-2">
-                <div class="card w-100">
-                    <a href="./blog.php">
-                        <img src="./assets/images/banner/banner-2.jpg" class="card-img-top w-100 img-fluid" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                        <div>
-                            <img src="./assets/images/fevicon.png" alt="" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden;">
-                            <small class="text-secondary">By User@123 | </small>
-
-                            <small class="text-secondary"> January 15, 2022</small>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <small class="text-secondary">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Accusantium sequi, fuga
-                                harum facilis eos rem impedit deleniti hic totam fugit...</small>
-                        </li>
-                        <li class="list-group-item d-flex flex-column justify-content-center">
-                            <a href="./blog.php" class="btn btn-outline-info mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            <?php endwhile; ?>
 
         </div>
         <!-- product row end -->

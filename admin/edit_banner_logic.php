@@ -6,6 +6,7 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
     $id                         = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     $previous_img_name    = filter_var($_POST['previous_img_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $description                       = filter_var($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $type                       = filter_var($_POST['type'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $img                  = $_FILES['img'];
 
     $query = "SELECT * FROM banners WHERE id=$id";
@@ -17,6 +18,9 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
 
     if (!$id) {
         $_SESSION['edit-banner'] = "Invalid operation: no id";
+    }
+    if (!$type) {
+        $_SESSION['edit-banner'] = "No banner type.";
     }
     if (!$description) {
         $_SESSION['edit-banner'] = "Please enter description";
@@ -62,7 +66,7 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
         $query =    "UPDATE banners SET 
                     description='$description', 
                     img='$img_to_insert'
-                    WHERE id=$id ";
+                    WHERE id=$id AND type='$type'";
 
         $result = mysqli_query($connection, $query);
 
@@ -70,6 +74,8 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
             $_SESSION['edit-banner-success'] = "banner: $banner_name successfully updated";
             if ($banner['type'] == 'main') {
                 header('location: ' . ROOT_URL . 'admin/manage_main_banner.php');
+            } else if ($banner['type'] == 'secondary') {
+                header('location: ' . ROOT_URL . 'admin/manage_secondary_banner.php');
             } else {
                 header('location: ' . ROOT_URL . 'admin/');
             }

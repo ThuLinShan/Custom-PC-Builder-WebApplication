@@ -5,6 +5,8 @@ include './partials/header.php';
 // Fetch brands
 $query = "SELECT * FROM brand ORDER BY brand_name";
 $brands = mysqli_query($connection, $query);
+$query = "SELECT * FROM blog ORDER BY date";
+$blogs =  mysqli_query($connection, $query);
 ?>
 <!-- main start here -->
 <main>
@@ -34,6 +36,58 @@ $brands = mysqli_query($connection, $query);
                 <p>
                     <?= $_SESSION['delete-brand-success'];
                     unset($_SESSION['delete-brand-success']); ?>
+                </p>
+            </div>
+        <?php endif ?>
+
+        <?php if (isset($_SESSION['add-blog-success'])) : ?>
+            <div class="bg-success d-flex justify-content-center align-items-center text-white p-3">
+                <h3>
+                    <?= $_SESSION['add-blog-success'];
+                    unset($_SESSION['add-blog-success']);
+                    ?>
+                </h3>
+            </div>
+        <?php elseif (isset($_SESSION['add-blog'])) : ?>
+            <div class="bg-danger d-flex justify-content-center align-items-center text-white p-3">
+                <h3>
+                    <?= $_SESSION['add-blog'];
+                    unset($_SESSION['add-blog']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
+
+        <?php if (isset($_SESSION['edit-blog-success'])) : ?>
+            <div class="bg-success d-flex justify-content-center align-items-center text-white p-3">
+                <h3>
+                    <?= $_SESSION['edit-blog-success'];
+                    unset($_SESSION['edit-blog-success']);
+                    ?>
+                </h3>
+            </div>
+        <?php elseif (isset($_SESSION['edit-blog'])) : ?>
+            <div class="bg-danger d-flex justify-content-center align-items-center text-white p-3">
+                <h3>
+                    <?= $_SESSION['edit-blog'];
+                    unset($_SESSION['edit-blog']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
+
+        <?php if (isset($_SESSION['delete-blog'])) : ?>
+            <div class="bg-danger d-flex justify-content-center align-items-center text-white p-3">
+                <p>
+                    <?= $_SESSION['delete-blog'];
+                    unset($_SESSION['delete-blog']); ?>
+                </p>
+            </div>
+        <?php elseif (isset($_SESSION['delete-blog-success'])) : ?>
+            <div class="bg-success d-flex justify-content-center align-items-center text-white p-3">
+                <p>
+                    <?= $_SESSION['delete-blog-success'];
+                    unset($_SESSION['delete-blog-success']); ?>
                 </p>
             </div>
         <?php endif ?>
@@ -258,36 +312,43 @@ $brands = mysqli_query($connection, $query);
             <div class="accordion" id="contentManagement">
                 <div class="accordion-item border-1 border-primary-subtle">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentOne" aria-expanded="true" aria-controls="contentOne">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#contentOne" aria-expanded="true" aria-controls="contentOne">
                             Manage Blogs
                         </button>
                     </h2>
-                    <div id="contentOne" class="accordion-collapse collapse" data-bs-parent="#contentManagement">
+                    <div id="contentOne" class="accordion-collapse show" data-bs-parent="#contentManagement">
                         <div class="accordion-body">
 
                             <!-- manage brands -->
                             <div>
                                 <div class="d-flex justify-content-between p-3 shadow-lg">
                                     <h5>Blogs</h5>
-                                    <a class="btn btn-dark px-4" href="./add_brand.php">Add new blog</a>
+                                    <a class="btn btn-dark px-4" href="./add_blog.php">Add new blog</a>
                                 </div>
-                                <?php if (mysqli_num_rows($brands) > 0) : ?>
+                                <?php if (mysqli_num_rows($blogs) > 0) : ?>
                                     <table class="table text-center">
                                         <thead>
                                             <tr>
-                                                <th>Blog name</th>
-                                                <th>Date</th>
+                                                <th>Header</th>
+                                                <th>Is featured</th>
+                                                <th class="d-none d-lg-block">thumbnail</th>
                                                 <th>Manage</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($brand = mysqli_fetch_assoc($brands)) : ?>
+                                            <?php while ($blog = mysqli_fetch_assoc($blogs)) : ?>
                                                 <tr class="align-middle">
-                                                    <td><?= $brand['brand_name'] ?></td>
-                                                    <td><img src="<?= ROOT_URL ?>assets/images/brands/<?= $brand['img'] ?>" loading="lazy" width="100px" alt=""></td>
+                                                    <td><?= substr($blog['header'], 0, 20) ?>...</td>
+                                                    <td>
+                                                        <?php if ($blog['is_featured'] == 1) : ?>
+                                                            <p>&#10004</p>
+                                                        <?php endif ?>
+                                                    </td>
+                                                    <td class="d-none d-lg-block"><img src="<?= ROOT_URL ?>assets/images/blogs/<?= $blog['img'] ?>" class="img-thumbnail" loading="lazy" width="100px" alt=""></td>
                                                     <td class="ms-4">
-                                                        <a class="btn btn-primary mb-1" style="width: 80px;" href="<?= ROOT_URL ?>details/brand_details.php?id=<?= $brand['id'] ?>">Details</a>
-                                                        <a class="btn btn-secondary " style="width: 80px;" href="./edit_brand.php?id=<?= $brand['id'] ?>" class="btn sm">Edit</a>
+                                                        <a class="btn btn-primary mb-1" href="<?= ROOT_URL ?>details/blog_details.php?id=<?= $blog['id'] ?>">Details</a>
+                                                        <a class="btn btn-secondary mb-1" href="./edit_blog.php?id=<?= $blog['id'] ?>" class="btn sm">Edit</a>
+                                                        <a class="btn btn-danger mb-1" href="./delete_blog_logic.php?id=<?= $blog['id'] ?>" class="btn sm"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             <?php endwhile; ?>
@@ -295,10 +356,9 @@ $brands = mysqli_query($connection, $query);
                                     </table>
                                 <?php else : ?>
                                     <div class="alert__message error">
-                                        <p> "No brands found" </p>
+                                        <p> "No blogs found" </p>
                                     </div>
                                 <?php endif ?>
-
                             </div>
                             <!-- manage brands -->
 
@@ -307,11 +367,11 @@ $brands = mysqli_query($connection, $query);
                 </div>
                 <div class="accordion-item border-1 border-primary-subtle">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#contentTwo" aria-expanded="false" aria-controls="contentTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contentTwo" aria-expanded="false" aria-controls="contentTwo">
                             Manage Banners
                         </button>
                     </h2>
-                    <div id="contentTwo" class="accordion-collapse collapse show" data-bs-parent="#contentManagement">
+                    <div id="contentTwo" class="accordion-collapse collapse collapse" data-bs-parent="#contentManagement">
                         <div class="accordion-body">
                             <div>
                                 <div class="d-flex justify-content-between p-3 shadow-lg">
@@ -338,13 +398,6 @@ $brands = mysqli_query($connection, $query);
                                             <td class=" ">Home</td>
                                             <td>
                                                 <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_secondary_banner.php">Manage</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td class=" ">Product Banners</td>
-                                            <td class=" ">Products</td>
-                                            <td>
-                                                <a class="btn btn-secondary" href="<?= ROOT_URL ?>admin/manage_cpu.php">Manage</a>
                                             </td>
                                         </tr>
                                     </tbody>

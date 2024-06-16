@@ -48,6 +48,8 @@ unset($_SESSION['edit-banner-data']);
                     <!-- Previous Thumbnail -->
                     <input type="hidden" value="<?= $banner['img'] ?>" name="previous_img_name">
 
+                    <input type="hidden" value="<?= $banner['type'] ?>" name="type">
+
                     <div class="my-5 mx-auto">
                         <p class="text-center">Current Image</p>
                         <img src="<?= ROOT_URL . "assets/images/banners/" . $banner['img'] ?>" class="img-thumbnail img-fluid" alt="">
