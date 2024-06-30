@@ -68,6 +68,14 @@ if (isset($_GET['id'])) {
                         </p>
                     </div>
 
+                    <?php if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == false) : ?>
+                        <div class="d-flex flex-column justify-content-end" style="flex:auto;">
+                            <a class="form-control mb-3 btn btn-info text-white" href="<?= ROOT_URL ?>authenticated/add_to_cart_logic.php?product_id=<?= $laptop['id'] ?>&category=laptop&count=1&price=<?= $laptop['price'] ?>">Add to Cart <i class="text-dark fa-solid fa-cart-shopping"></i> </a>
+                            <a class="form-control mb-3 btn btn-dark" href="">Buy Now <i class="text-info fa-solid fa-dollar"></i> </a>
+                        </div>
+                    <?php endif ?>
+
+
                 </div>
                 <div class="col-md-7 d-flex flex-column justify-content-center align-items-center">
                     <div class="ms-0 ms-md-5 mt-3">

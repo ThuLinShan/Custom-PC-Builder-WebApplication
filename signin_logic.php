@@ -28,6 +28,7 @@ if (isset($_POST['submit'])) {
                     //Log in to admin
                     header('location: ' . ROOT_URL . 'admin/');
                 } else {
+                    $_SESSION['user_is_admin'] = false;
                     header('location: ' . ROOT_URL);
                 }
             } else {

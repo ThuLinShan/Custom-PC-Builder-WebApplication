@@ -5,7 +5,7 @@ if (!isset($_GET['page'])) {
     $_GET['page'] = 1;
 }
 if (!isset($_GET['size'])) {
-    $_GET['size'] = 5;
+    $_GET['size'] = 8;
 }
 $page = $_GET['page'];
 $size = $_GET['size'];
@@ -132,7 +132,7 @@ if ($result) {
                         </ul>
                         <div class="card-body">
                             <a href="<?= ROOT_URL . "details/prebuilt_details.php?id=" . $prebuilt['id'] ?>" class="btn rounded-5 btn-outline-info ">Details</a>
-                            <a href="#" class="btn rounded-5 btn-secondary">Add to Cart</a>
+                            <a href="<?= ROOT_URL ?>authenticated/add_to_cart_logic.php?product_id=<?= $prebuilt['id'] ?>&category=prebuilt&count=1&price=<?= $prebuilt['price'] ?>" class="btn rounded-5 btn-secondary">Add to Cart</a>
                         </div>
                     </div>
                 </div>

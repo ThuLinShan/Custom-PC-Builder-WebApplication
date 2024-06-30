@@ -73,14 +73,21 @@
     <!-- toast notification -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="https://placehold.co/50x50" class="rounded me-2">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
+            <div class="toast-header p-2">
+                <i class="fa-solid fa-bell"></i>
+                <strong class="me-auto mx-3">Notifications</strong>
+                <small>Total: <span>2</span></small>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
-                Hello, world! This is a toast message.
+            <div class="toast-body py-2 border-2 border-bottom">
+                <div class="d-flex justify-content-between">
+                    <h5>Header</h5>
+                    <small>06-22-2024</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>Some description</p>
+                    <a class="link-info" href="">View</a>
+                </div>
             </div>
         </div>
     </div>
@@ -88,14 +95,45 @@
 
     <!-- cart start  -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Cart</h5>
+        <div class="offcanvas-header bg-info-subtle border-2 border-bottom ">
+            <h5 class="offcanvas-title fs-4" id="offcanvasExampleLabel"> <i class="fa-solid fa-cart-shopping me-2 fs-2"></i> Just Your Cart___</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+
+            <div class="p-2 bg-dark rounded">
+                <p class="m-0 p-0 fw-lighter text-white">List of cart items</p>
             </div>
+
+            <div class="mt-2 row text-center">
+                <div class="col fw-bold">Item Name</div>
+                <div class="col fw-bold">Qty</div>
+            </div>
+
+            <div class="mt-2 bg-secondary-subtle py-3" style="flex: 1;" style="overflow-y: scroll; overflow-x: hidden;">
+                <div class="row mb-1 border-bottom border-1 px-3">
+                    <div class="col">Glx something PC</div>
+                    <div class="col text-end">1</div>
+                </div>
+                <div class="row mb-1 border-bottom border-1 px-3">
+                    <div class="col">GTX 1650Ti</div>
+                    <div class="col text-end">2</div>
+                </div>
+                <div class="row mb-1 border-bottom border-1 px-3">
+                    <div class="col">Corsiar 16GB ram</div>
+                    <div class="col text-end">1</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex justify-content-between">
+                <p class="text-primary p-0 m-0">Total items in the cart: <span>5</span></p>
+                <strong>Price: £3650</strong>
+            </div>
+        </div>
+        <div class="offcanvas-bottom d-flex flex-column justify-content-end" style="height: 10vh;">
+            <a class="form-control rounded-0 btn btn-dark py-2" href="<?= ROOT_URL ?>authenticated/cart.php?userid=<?= $id ?>">View Cart <i class="fa-solid fa-cart-shopping"></i> </a>
+            <a class="form-control rounded-0 btn btn-info py-2" href="">Make Checkout <i class="fa-solid fa-list"></i></a>
         </div>
     </div>
     <!-- cart end -->

@@ -7,6 +7,24 @@ if (isset($_SESSION['user-id'])) {
     $query = "SELECT avatar FROM users WHERE id=$id";
     $result = mysqli_query($connection, $query);
     $avatar = mysqli_fetch_assoc($result);
+
+    $query = "SELECT * FROM cart WHERE userid=$id";
+    $result = mysqli_query($connection, $query);
+    $cart_items = mysqli_fetch_assoc($result);
+
+    $query = "SELECT COUNT(*) AS count FROM cart WHERE userid=$id";
+    $result = mysqli_query($connection, $query);
+    $assoc = mysqli_fetch_assoc($result);
+    $cart_count = $assoc['count'];
+
+    $query = "SELECT * FROM notification WHERE userid=$id";
+    $result = mysqli_query($connection, $query);
+    $noti_items = mysqli_fetch_assoc($result);
+
+    $query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id";
+    $result = mysqli_query($connection, $query);
+    $assoc = mysqli_fetch_assoc($result);
+    $noti_count = $assoc['count'];
 }
 ?>
 <!DOCTYPE html>
@@ -29,15 +47,15 @@ if (isset($_SESSION['user-id'])) {
 <body>
 
     <!-- header start here -->
-    <header>
+    <header class="sticky-top shadow">
 
-        <div class="alert alert-info alert-dismissible fade show " role="alert" style="background-image:url(<?= ROOT_URL ?>assets/images/banners/promotional-bg.png); background-repeat:repeat; background-color:#0c4174; color:#fff; padding:18px 0; margin:0; line-height:24px; font-size:17px; text-transform:uppercase; text-align:center; ">
+        <!-- <div class="alert alert-info alert-dismissible fade show " role="alert" style="background-image:url(assets/images/banners/promotional-bg.png); background-repeat:repeat; background-color:#0c4174; color:#fff; padding:18px 0; margin:0; line-height:24px; font-size:17px; text-transform:uppercase; text-align:center; ">
             <strong>Holy guacamole!</strong>
             <span>You should check in on some of those fields below.</span>
             <button type="button" class="btn-close bg-white p-2 mt-3 me-2 rounded-5" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        </div> -->
 
-        <nav class="navbar navbar-expand-lg bg-white px-5" style="font-size: large;">
+        <nav class="navbar navbar-expand-lg bg-white px-5" style="font-size: large; ">
             <div class="container-fluid">
                 <a class="navbar-brand img-fluid" href="<?= ROOT_URL ?>"><img src="<?= ROOT_URL ?>assets/images/logos/logo.png" width="100px" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +72,7 @@ if (isset($_SESSION['user-id'])) {
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Custom PC builder <span class="badge bg-danger">New</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL ?>/products/custom_builder.php?config=intel">Custom PC builder <span class="badge bg-danger">New</span> </a></li>
 
                             </ul>
                         </li>
@@ -63,15 +81,14 @@ if (isset($_SESSION['user-id'])) {
                                 Laptops
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">Gaming Laptops</a></li>
-                                <li><a class="dropdown-item" href="#">Office use</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">All Laptops</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Budget Laptops</a></li>
-                                <li><a class="dropdown-item" href="#">Most popular ones</a></li>
-                                <li><a class="dropdown-item" href="#">Budget Laptops <span class="badge bg-danger">Hot</span> </a></li>
-                                <li><a class="dropdown-item" href="#">Promotions <span class="badge bg-danger">Hot</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Gaming'" ?>">Gaming Laptops <span class="badge bg-danger">Hot</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Office'" ?>">Office Laptops</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Student'" ?>">Student Laptops <span class="badge bg-success">Sweet</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Professional'" ?>">Professional</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -93,36 +110,35 @@ if (isset($_SESSION['user-id'])) {
                             </ul>
                         </li>
 
+
+                    </ul>
+                    <div class="d-flex" role="search">
                         <?php if (isset($_SESSION['user-id'])) : ?>
-                            <li class="nav-item me-2">
+                            <div class="nav-item me-2">
                                 <!-- notification button -->
-                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i><span class="ms-1 badge bg-info">5</span></button>
-                                <!-- cart button -->
-                                <a class="btn btn-outline-dark me-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                                    <i class="fa-solid fa-cart-shopping"></i> <span class="ms-1 badge bg-info">5</span>
-                                </a>
+                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i><span class="ms-1 badge bg-info"><?= $noti_count ?></span></button>
                                 <!-- profile -->
                                 <?php if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true) : ?>
                                     <a href="<?= ROOT_URL ?>admin" style="text-decoration: none;">
                                         <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar['avatar'] ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden;object-fit: cover;" alt="" width="50px" height="50px">
                                     </a>
                                 <?php else : ?>
+                                    <!-- cart button -->
+                                    <a class="btn btn-outline-dark me-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                                        <i class="fa-solid fa-cart-shopping"></i> <span class="ms-1 badge bg-info"><?= $cart_count ?></span>
+                                    </a>
                                     <a href="<?= ROOT_URL ?>authenticated/myaccount.php?id=<?= $id ?>" style="text-decoration: none;">
                                         <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar['avatar'] ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden;object-fit: cover;" alt="" width="50px" height="50px">
                                     </a>
                                 <?php endif ?>
                                 <a href="<?= ROOT_URL ?>signout.php" style="text-decoration: none;" class="btn btn-outline-dark opacity-75">Logout</a>
-                            </li>
+                            </div>
                         <?php else : ?>
                             <li class="nav-item">
                                 <a href="<?= ROOT_URL ?>signin.php" class="btn btn-info text-white">Signin</a>
                             </li>
                         <?php endif ?>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-info text-white" type="submit">Search</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </nav>

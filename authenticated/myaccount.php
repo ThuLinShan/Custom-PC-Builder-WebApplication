@@ -15,9 +15,29 @@ include './partials/header.php';
         </div>
     </div>
 
-    <div class="container my-5">
-        <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden; object-fit: cover;" alt="" width="500rem;" height="500rem;">
-        <h4>Hello <?= $current_user['username'] ?></h4>
+    <div class="container shadow rounded py-3 my-5">
+        <div class="d-flex flex-column justify-content-around align-items-center">
+            <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden; object-fit: cover;" alt="" width="250rem;" height="250rem;">
+            <div class=" mt-3">
+                <h4 class="text-start p-0 m-0 text-center">Hello <span class="text-primary"> <?= $current_user['username'] ?></span></h4>
+                <p class="text-secondary text-center fs-6"><?= $current_user['email'] ?></p>
+            </div>
+            <div class="mt-3">
+                <h5>You personal Details</h5>
+                <div class="row">
+                    <div class="col">Phone 1: </div>
+                    <div class="col"><?= $current_user['phone1'] ?></div>
+                </div>
+                <div class="row">
+                    <div class="col">Phone 2: </div>
+                    <div class="col"><?php if (isset($current_user['phone2'])) : ?><?= $current_user['phone2'] ?><?php else : ?><p>Na</p><?php endif ?></div>
+                </div>
+                <div class="row">
+                    <div class="col">Address: </div>
+                    <div class="col"><?php if (isset($current_user['address'])) : ?><?= $current_user['address'] ?><?php else : ?><p>Na</p><?php endif ?></div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <!-- main end here -->
