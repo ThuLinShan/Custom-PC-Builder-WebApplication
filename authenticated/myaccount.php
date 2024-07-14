@@ -17,24 +17,34 @@ include './partials/header.php';
 
     <div class="container shadow rounded py-3 my-5">
         <div class="d-flex flex-column justify-content-around align-items-center">
-            <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden; object-fit: cover;" alt="" width="250rem;" height="250rem;">
-            <div class=" mt-3">
-                <h4 class="text-start p-0 m-0 text-center">Hello <span class="text-primary"> <?= $current_user['username'] ?></span></h4>
-                <p class="text-secondary text-center fs-6"><?= $current_user['email'] ?></p>
-            </div>
-            <div class="mt-3">
-                <h5>You personal Details</h5>
-                <div class="row">
-                    <div class="col">Phone 1: </div>
-                    <div class="col"><?= $current_user['phone1'] ?></div>
+            <div class="row w-100">
+                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end border-1">
+                    <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar ?>" style="border-radius: 50%; border:solid black 2px; padding:2px; overflow:hidden; object-fit: cover;" alt="" width="250rem;" height="250rem;">
+                    <div class=" mt-3">
+                        <h4 class="text-start p-0 m-0 text-center">Hello <span class="text-primary"> <?= $current_user['username'] ?></span></h4>
+                        <p class="text-secondary text-center fs-6"><?= $current_user['email'] ?></p>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col">Phone 2: </div>
-                    <div class="col"><?php if (isset($current_user['phone2'])) : ?><?= $current_user['phone2'] ?><?php else : ?><p>Na</p><?php endif ?></div>
-                </div>
-                <div class="row">
-                    <div class="col">Address: </div>
-                    <div class="col"><?php if (isset($current_user['address'])) : ?><?= $current_user['address'] ?><?php else : ?><p>Na</p><?php endif ?></div>
+                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mt-3">
+                        <h5>You Personal Details</h5>
+                        <div class="row">
+                            <div class="col">Phone 1: </div>
+                            <div class="col"><?= $current_user['phone1'] ?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Phone 2: </div>
+                            <div class="col"><?php if (isset($current_user['phone2'])) : ?><?= $current_user['phone2'] ?><?php else : ?><p>Na</p><?php endif ?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Address: </div>
+                            <div class="col"><?php if (isset($current_user['address'])) : ?><?= $current_user['address'] ?><?php else : ?><p>Na</p><?php endif ?></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center my-5">
+                        <a class="btn btn-dark px-5" href="<?= ROOT_URL ?>authenticated/orders.php?userid=<?= $_SESSION['user-id'] ?>">View Orders</a>
+                    </div>
                 </div>
             </div>
         </div>

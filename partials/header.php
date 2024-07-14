@@ -12,7 +12,7 @@ if (isset($_SESSION['user-id'])) {
     $result = mysqli_query($connection, $query);
     $cart_items = mysqli_fetch_assoc($result);
 
-    $query = "SELECT COUNT(*) AS count FROM cart WHERE userid=$id";
+    $query = "SELECT COUNT(*) AS count FROM cart WHERE userid=$id and bought=0";
     $result = mysqli_query($connection, $query);
     $assoc = mysqli_fetch_assoc($result);
     $cart_count = $assoc['count'];
@@ -21,10 +21,16 @@ if (isset($_SESSION['user-id'])) {
     $result = mysqli_query($connection, $query);
     $noti_items = mysqli_fetch_assoc($result);
 
-    $query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id";
+    $query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id AND status = 0";
     $result = mysqli_query($connection, $query);
     $assoc = mysqli_fetch_assoc($result);
     $noti_count = $assoc['count'];
+
+    $query = "SELECT * FROM cart WHERE userid=$id and bought=0";
+    $cart_assocs = mysqli_query($connection, $query);
+
+    $query = "SELECT * FROM notification WHERE userid=$id AND status = 0";
+    $noti_assocs = mysqli_query($connection, $query);
 }
 ?>
 <!DOCTYPE html>
@@ -116,7 +122,13 @@ if (isset($_SESSION['user-id'])) {
                         <?php if (isset($_SESSION['user-id'])) : ?>
                             <div class="nav-item me-2">
                                 <!-- notification button -->
-                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i><span class="ms-1 badge bg-info"><?= $noti_count ?></span></button>
+                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i>
+                                    <?php if ($noti_count > 0) : ?>
+                                        <span class="ms-1 badge bg-info">
+                                            <?= $noti_count ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </button>
                                 <!-- profile -->
                                 <?php if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true) : ?>
                                     <a href="<?= ROOT_URL ?>admin" style="text-decoration: none;">

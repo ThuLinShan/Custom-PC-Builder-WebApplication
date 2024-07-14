@@ -39,7 +39,7 @@ if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == false) {
             }
 
             $price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT);
-            $name = generateRandomString();
+            $name = 'Custom_Built' . generateRandomString();
             $motherboard = filter_var($_POST['motherboard'], FILTER_SANITIZE_NUMBER_INT);
             $cpu = filter_var($_POST['cpu'], FILTER_SANITIZE_NUMBER_INT);
             $gpu = filter_var($_POST['gpu'], FILTER_SANITIZE_NUMBER_INT);
@@ -53,7 +53,7 @@ if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == false) {
 
             $insert_query = "INSERT INTO custom_order (
             os,
-            name,
+            custom_order_name,
             cpu,
             gpu,
             ram,
@@ -114,7 +114,7 @@ if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == false) {
     ) VALUES (
     '$user_id',
     'Added to Cart',
-    'New item has be added to cart successfully',
+    'New  $category  has be added to cart successfully',
     'authenticated/cart.php'
     )";
     $insert_result = mysqli_query($connection, $insert_query);
@@ -127,6 +127,6 @@ if (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == false) {
         die();
     }
 } else {
-    header('location: ' . ROOT_URL);
+    header('location: ' . ROOT_URL . "/signin.php");
     die();
 }

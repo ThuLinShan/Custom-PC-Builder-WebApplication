@@ -156,7 +156,7 @@ if (isset($_GET['id'])) {
                             </p>
                         </div>
                         <div class="d-flex flex-column justify-content-end" style="flex:auto;">
-                            <a href="<?= ROOT_URL ?>authenticated/add_to_cart_logic.php?product_id=<?= $prebuilt['id'] ?>&category=prebuilt&count=1&price=<?= $prebuilt['price'] ?>" class="btn rounded-5 btn-secondary">Add to Cart</a>
+                            <a href="<?= ROOT_URL ?>authenticated/add_to_cart_logic.php?product_id=<?= $prebuilt['id'] ?>&category=prebuilt&count=1&price=<?= $prebuilt['price'] ?>" class="btn btn-secondary">Add to Cart</a>
                             <a class="form-control mb-3 btn btn-dark" href="">Buy Now <i class="text-info fa-solid fa-dollar"></i></a>
                         </div>
                     </div>

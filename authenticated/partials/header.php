@@ -14,7 +14,7 @@ if (isset($_SESSION['user-id'])) {
     $result = mysqli_query($connection, $query);
     $cart_items = mysqli_fetch_assoc($result);
 
-    $query = "SELECT COUNT(*) AS count FROM cart WHERE userid=$id";
+    $query = "SELECT COUNT(*) AS count FROM cart WHERE userid=$id and bought=0";
     $result = mysqli_query($connection, $query);
     $assoc = mysqli_fetch_assoc($result);
     $cart_count = $assoc['count'];
@@ -23,12 +23,18 @@ if (isset($_SESSION['user-id'])) {
     $result = mysqli_query($connection, $query);
     $noti_items = mysqli_fetch_assoc($result);
 
-    $query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id";
+    $query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id AND status = 0";
     $result = mysqli_query($connection, $query);
     $assoc = mysqli_fetch_assoc($result);
     $noti_count = $assoc['count'];
+
+    $query = "SELECT * FROM cart WHERE userid=$id and bought=0";
+    $cart_assocs = mysqli_query($connection, $query);
+
+    $query = "SELECT * FROM notification WHERE userid=$id AND status = 0";
+    $noti_assocs = mysqli_query($connection, $query);
 } else {
-    header('location:' . ROOT_URL);
+    header('location:' . ROOT_URL . 'signin.php');
     die();
 }
 ?>
@@ -94,8 +100,7 @@ if (isset($_SESSION['user-id'])) {
                                 Blogs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My blogs</a></li>
-                                <li><a class="dropdown-item" href="#">Discover blogs</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "blogs.php?page=1&size=8" ?>">Discover blogs</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -114,7 +119,13 @@ if (isset($_SESSION['user-id'])) {
                         <?php if (isset($_SESSION['user-id'])) : ?>
                             <div class="nav-item me-2">
                                 <!-- notification button -->
-                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i><span class="ms-1 badge bg-info"><?= $noti_count ?></span></button>
+                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i>
+                                    <?php if ($noti_count > 0) : ?>
+                                        <span class="ms-1 badge bg-info">
+                                            <?= $noti_count ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </button>
                                 <!-- cart button -->
                                 <a class="btn btn-outline-dark me-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                                     <i class="fa-solid fa-cart-shopping"></i> <span class="ms-1 badge bg-info"><?= $cart_count ?></span>
