@@ -25,24 +25,50 @@ $orders = mysqli_query($connection, $query);
         </div>
     </div>
 
-    <div class="container py-3 my-5 text-center">
+    <div class="container p-3 my-5 text-center shadow">
 
-        <div class="row pb-1 bg-dark text-white">
+        <div class="row pb-1 bg-dark text-white mb-1">
             <div class="col-2 border-end border-white border-2">
                 Status
             </div>
             <div class="col border-end border-white border-2">
                 Details
             </div>
-            <div class="col-2 border-end border-white border-2">
+            <div class="col-2 border-white border-2">
                 Total
             </div>
         </div>
         <?php while ($order = mysqli_fetch_assoc($orders)) : ?>
-            <div class="row mb-2 border-bottom">
-                <div class="col-2 d-flex flex-column justify-content-center bg-secondary-subtle">
-                    <?= $order['status'] ?>
+            <div class="row mb-2 border-bottom border-dark">
+                <?php
+                switch ($order['status']) {
+                    case 'ORDERED':
+                        $statusClass = 'bg-info text-white';
+                        break;
+                    case 'DELIVERED':
+                        $statusClass = 'bg-success text-white';
+                        break;
+                    case 'REJECTED':
+                        $statusClass = 'bg-danger text-white';
+                        break;
+                    default:
+                        $statusClass = 'bg-secondary-subtle text-dark';
+                        break;
+                }
+                ?>
+
+
+                <div class="col-2 d-flex flex-column justify-content-center">
+                    <p class="text-center rounded <?= $statusClass ?>">
+                        <?= $order['status'] ?>
+                    </p>
+                    <?php if (isset($order['note']) && $order['note'] != '') : ?>
+                        <p class="text-secondary small">
+                            Note: <?= $order['note'] ?>
+                        </p>
+                    <?php endif ?>
                 </div>
+
                 <div class="col">
                     <?php
                     $order_id = $order['id'];

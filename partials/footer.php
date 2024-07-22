@@ -81,18 +81,20 @@
             </div>
             <div class="toast-body py-2" style="overflow-y: scroll; height: 50vh; opacity: 100%; background-color: white;">
 
-                <?php while ($noti_assoc = mysqli_fetch_assoc($noti_assocs)) : ?>
-                    <div class="d-flex justify-content-between">
-                        <p class="fw-bold"><?= $noti_assoc['header'] ?></p>
-                        <small>
-                            <?= date("M d, Y - h:i a", strtotime($noti_assoc['date'])) ?>
-                        </small>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2 border-1 border-bottom border-secondary-subtle">
-                        <p><?= $noti_assoc['description'] ?></p>
-                        <a class="link-info" href="<?= ROOT_URL . $noti_assoc['link'] ?>">View</a>
-                    </div>
-                <?php endwhile ?>
+                <?php if (isset(($_SESSION['user-id']))) : ?>
+                    <?php while ($noti_assoc = mysqli_fetch_assoc($noti_assocs)) : ?>
+                        <div class="d-flex justify-content-between">
+                            <p class="fw-bold"><?= $noti_assoc['header'] ?></p>
+                            <small>
+                                <?= date("M d, Y - h:i a", strtotime($noti_assoc['date'])) ?>
+                            </small>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 border-1 border-bottom border-secondary-subtle">
+                            <p><?= $noti_assoc['description'] ?></p>
+                            <a class="link-info" href="<?= ROOT_URL . $noti_assoc['link'] ?>">View</a>
+                        </div>
+                    <?php endwhile ?>
+                <?php endif ?>
             </div>
         </div>
     </div>
@@ -121,34 +123,40 @@
                 $total_price = 0;
                 ?>
 
-                <?php while ($cart_assoc = mysqli_fetch_assoc($cart_assocs)) : ?>
-                    <?php
-                    $query = "SELECT * FROM " . $cart_assoc['product_type'] . " WHERE id=" . $cart_assoc['product_id'] . ";";
-                    $result = mysqli_query($connection, $query);
-                    $cart_item = mysqli_fetch_assoc($result);
-                    $index = $cart_assoc['product_type'] . "_name";
-                    $total_price = $total_price + $cart_item['price'];
-                    ?>
-                    <div class="row mb-1  px-3">
-                        <div class="col border-1 border-bottom border-dark">
-                            <p class=""><?= $cart_item[$index] ?></p>
+                <?php if (isset(($_SESSION['user-id']))) : ?>
+                    <?php while ($cart_assoc = mysqli_fetch_assoc($cart_assocs)) : ?>
+                        <?php
+                        $query = "SELECT * FROM " . $cart_assoc['product_type'] . " WHERE id=" . $cart_assoc['product_id'] . ";";
+                        $result = mysqli_query($connection, $query);
+                        $cart_item = mysqli_fetch_assoc($result);
+                        $index = $cart_assoc['product_type'] . "_name";
+                        $total_price = $total_price + $cart_item['price'];
+                        ?>
+                        <div class="row mb-1  px-3">
+                            <div class="col border-1 border-bottom border-dark">
+                                <p class=""><?= $cart_item[$index] ?></p>
+                            </div>
+                            <div class="col-3 border-1 border-bottom border-dark text-end">
+                                <p><?= $cart_assoc['count'] ?></p>
+                            </div>
                         </div>
-                        <div class="col-3 border-1 border-bottom border-dark text-end">
-                            <p><?= $cart_assoc['count'] ?></p>
-                        </div>
-                    </div>
-                <?php endwhile ?>
+                    <?php endwhile ?>
+                <?php endif ?>
 
             </div>
 
 
-            <div class="d-flex justify-content-between">
-                <p class="text-primary p-0 m-0">Total items in the cart: <span><?= $cart_count ?></span></p>
-                <strong>Price: £<?= $total_price ?></strong>
-            </div>
+            <?php if (isset(($_SESSION['user-id']))) : ?>
+                <div class="d-flex justify-content-between">
+                    <p class="text-primary p-0 m-0">Total items in the cart: <span><?= $cart_count ?></span></p>
+                    <strong>Price: £<?= $total_price ?></strong>
+                </div>
+            <?php endif ?>
         </div>
         <div class="offcanvas-bottom d-flex flex-column justify-content-end" style="height: 10vh;">
-            <a class="form-control rounded-0 btn btn-info py-4" href="<?= ROOT_URL ?>authenticated/cart.php?userid=<?= $id ?>">View Cart <i class="fa-solid fa-cart-shopping"></i> </a>
+            <?php if (isset(($_SESSION['user-id']))) : ?>
+                <a class="form-control rounded-0 btn btn-primary border-top py-4 fw-bold fs-4" href="<?= ROOT_URL ?>authenticated/cart.php?userid=<?= $id ?>">View Cart <i class="fa-solid fa-cart-shopping"></i> </a>
+            <?php endif ?>
         </div>
     </div>
     <!-- cart end -->

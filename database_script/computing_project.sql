@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2024 at 03:28 PM
+-- Generation Time: Jul 22, 2024 at 06:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -68,12 +68,12 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `name`, `description`, `img`, `date`, `type`, `sub_type`, `status`) VALUES
-(8, 'NA', 'Summer Discount 20% off', '1716393821banner1.jpg', '2024-05-22 22:33:41', 'main', '', 1),
+(8, 'NA', 'You gotta keep it flashy~~~~~~~~~~~~', '1716632235banner4.jpg', '2024-05-22 22:57:10', 'main', '', 1),
 (9, 'NA', 'BAnnEr 2. Is CoOL', '1716395214banner2.jpg', '2024-05-22 22:56:54', 'main', '', 1),
-(10, 'NA', 'You gotta keep it flashy~~~~~~~~~~~~', '1716632235banner4.jpg', '2024-05-22 22:57:10', 'main', '', 1),
+(10, 'NA', 'Summer Discount 20% off', '1716393821banner1.jpg', '2024-05-22 22:33:41', 'main', '', 1),
 (12, 'NA', 'secondary 2 testing(500x500)', '1718508259HuTao1.jpg', '2024-05-25 17:02:07', 'secondary', 'sub', 1),
 (13, 'NA', 'secondary 3testing (500x500)', '1717345164Hutao4.jpg', '2024-05-25 17:02:25', 'secondary', 'mini1', 1),
-(14, 'NA', 'secondary4 testing (400x200)', '17173452485424073.jpg', '2024-05-25 17:02:39', 'secondary', 'mini2', 1),
+(14, 'NA', 'secondary4 testing (400x200)', '17187169355424073.jpg', '2024-05-25 17:02:39', 'secondary', 'mini2', 1),
 (15, 'NA', 'secondary main (500x500)', '1718508234Hutao3.jpg', '2024-06-16 09:52:53', 'secondary', 'main', 1);
 
 -- --------------------------------------------------------
@@ -145,9 +145,41 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_type` int(11) NOT NULL,
+  `product_type` varchar(255) NOT NULL,
   `count` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `bought` tinyint(4) NOT NULL DEFAULT 0,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `userid`, `product_id`, `product_type`, `count`, `price`, `bought`, `date`) VALUES
+(43, 5, 36, 'prebuilt', 1, 4000, 1, '2024-07-14 08:47:02'),
+(44, 5, 39, 'prebuilt', 1, 3000, 1, '2024-07-14 08:47:04'),
+(45, 5, 43, 'prebuilt', 1, 2330, 1, '2024-07-14 08:47:05'),
+(46, 5, 39, 'prebuilt', 1, 3000, 1, '2024-07-14 08:48:18'),
+(47, 5, 38, 'prebuilt', 1, 5000, 1, '2024-07-14 09:26:46'),
+(48, 5, 43, 'prebuilt', 1, 2330, 1, '2024-07-14 09:26:47'),
+(49, 5, 41, 'prebuilt', 1, 3000, 1, '2024-07-14 09:26:49'),
+(51, 5, 38, 'prebuilt', 1, 5000, 1, '2024-07-14 14:11:04'),
+(57, 8, 36, 'prebuilt', 1, 4000, 1, '2024-07-21 08:00:53'),
+(58, 8, 39, 'prebuilt', 1, 3000, 1, '2024-07-21 08:00:58'),
+(59, 8, 3, 'laptop', 1, 1593, 1, '2024-07-21 08:01:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_history`
+--
+
+CREATE TABLE `cart_history` (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `date` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -233,6 +265,39 @@ INSERT INTO `cpu` (`id`, `brand`, `cpu_name`, `img`, `description`, `generation`
 (5, 13, 'AMD Ryzen&trade; 7 5800X', '1703005200ryzen7.jpg', '8 cores optimized for high-FPS gaming rigs. As an AMD chip, it is pretty well rounded. Both budget wise and performance wise', 5, '4.7', 8, 16, 105, 150, 'https://www.amd.com/en/products/cpu/amd-ryzen-7-5800x'),
 (6, 7, 'Intel&reg; Core&trade; i5-13600K Processor', '1703523224corei513600k.png', 'Powerful and budget friendly chipset. Most used in family friendly budget gaming PC.', 13, '5.10', 14, 20, 127, 240, 'https://ark.intel.com/content/www/us/en/ark/products/230493/intel-core-i5-13600k-processor-24m-cache-up-to-5-10-ghz.html'),
 (7, 13, 'AMD Ryzen&trade; 9 5900X', '1703525468ryzen9.jpg', 'Good. Pricey. Powerful. Not the best but one of the bests.', 9, '4.8', 12, 24, 105, 306, 'https://www.amd.com/en/products/cpu/amd-ryzen-9-5900x');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `custom_order`
+--
+
+CREATE TABLE `custom_order` (
+  `id` int(11) NOT NULL,
+  `custom_order_name` varchar(255) NOT NULL,
+  `os` int(11) NOT NULL,
+  `cpu` int(11) NOT NULL,
+  `gpu` int(11) NOT NULL,
+  `ram` int(11) NOT NULL,
+  `primary_storage` int(11) NOT NULL,
+  `secondary_storage` int(11) DEFAULT NULL,
+  `motherboard` int(11) NOT NULL,
+  `desktop_case` int(11) NOT NULL,
+  `power_supply` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `custom_order`
+--
+
+INSERT INTO `custom_order` (`id`, `custom_order_name`, `os`, `cpu`, `gpu`, `ram`, `primary_storage`, `secondary_storage`, `motherboard`, `desktop_case`, `power_supply`, `price`, `date`) VALUES
+(10, '1fea5673150f', 1, 4, 3, 1, 2, 2, 6, 9, 1, 3756, '2024-07-01 16:28:52'),
+(11, '3ded0a41c888', 1, 4, 2, 2, 1, 0, 5, 9, 1, 4336, '2024-07-01 16:32:37'),
+(12, '678ea29468e1', 1, 7, 3, 1, 1, 0, 9, 2, 1, 3116, '2024-07-01 16:53:08'),
+(13, 'Custom_Builta4e1b4e4c574', 1, 5, 1, 1, 1, 0, 3, 2, 1, 3950, '2024-07-01 17:21:02'),
+(14, 'Custom_Built653622100159', 1, 5, 1, 1, 1, 0, 3, 2, 1, 3950, '2024-07-20 06:27:01');
 
 -- --------------------------------------------------------
 
@@ -411,6 +476,50 @@ INSERT INTO `motherboard` (`id`, `brand`, `motherboard_name`, `img`, `chipset`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `header` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `userid`, `header`, `description`, `link`, `date`, `status`) VALUES
+(27, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 08:47:02', 1),
+(28, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 08:47:04', 1),
+(29, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 08:47:05', 1),
+(30, 5, 'Order submitted', 'Your order has been submitted successfully.', 'authenticated/orders.php', '2024-07-14 08:47:08', 1),
+(31, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 08:48:18', 1),
+(32, 5, 'Order submitted', 'Your order has been submitted successfully.', 'authenticated/orders.php', '2024-07-14 08:49:29', 1),
+(33, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 09:26:46', 1),
+(34, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 09:26:47', 1),
+(35, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 09:26:49', 1),
+(36, 5, 'Order submitted', 'Your order has been submitted successfully.', 'authenticated/orders.php', '2024-07-14 09:26:54', 1),
+(37, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 14:11:03', 1),
+(38, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-14 14:11:04', 1),
+(39, 5, 'Order submitted', 'Your order has been submitted successfully.', 'authenticated/orders.php', '2024-07-14 14:11:18', 1),
+(40, 5, 'Added to Cart', 'New  custom_order  has be added to cart successfully', 'authenticated/cart.php', '2024-07-20 06:27:01', 1),
+(41, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-20 06:27:17', 1),
+(42, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-20 06:27:19', 1),
+(43, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-20 06:27:21', 1),
+(44, 5, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-20 06:27:25', 1),
+(45, 8, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-21 08:00:53', 1),
+(46, 8, 'Added to Cart', 'New  prebuilt  has be added to cart successfully', 'authenticated/cart.php', '2024-07-21 08:00:58', 1),
+(47, 8, 'Added to Cart', 'New  laptop  has be added to cart successfully', 'authenticated/cart.php', '2024-07-21 08:01:04', 1),
+(48, 8, 'Order submitted', 'Your order has been submitted successfully.', 'authenticated/orders.php', '2024-07-21 08:01:10', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `operating_system`
 --
 
@@ -430,6 +539,34 @@ CREATE TABLE `operating_system` (
 
 INSERT INTO `operating_system` (`id`, `operating_system_name`, `brand`, `img`, `description`, `price`, `link`) VALUES
 (1, 'Windows 11 Home Edition', 20, '1703307749windows11.png', 'Home edition for windows 11 operating system. Popular for its fair price and powerful os.', 60, 'https://www.microsoft.com/software-download/windows11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_cart`
+--
+
+CREATE TABLE `order_cart` (
+  `order_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_cart`
+--
+
+INSERT INTO `order_cart` (`order_id`, `cart_id`) VALUES
+(5, 43),
+(5, 44),
+(5, 45),
+(6, 46),
+(7, 47),
+(7, 48),
+(7, 49),
+(8, 51),
+(9, 57),
+(9, 58),
+(9, 59);
 
 -- --------------------------------------------------------
 
@@ -539,13 +676,13 @@ INSERT INTO `prebuilt` (`id`, `prebuilt_name`, `description`, `img`, `os`, `cpu`
 (35, 'TLT GX60 007 BgGaming', 'A budget gamin desktop with all rounded specifications and performance. Can handle 99% of all modern software.\r\nWindows 11 Home Edition, PRIME H610M-F D4 R2.0, AMD Ryzen&trade; 7 5800X, NVIDIA GeForce RTX 4090, Vengance CMH32GX5M2B5200C40, ROG RYUJIN III 240', '1715488219turGT501.png', 1, 5, 1, 1, 1, 1, 3, 10, 1, 5400, 4276, 1, 'None', '2024-05-09 16:16:47', 20),
 (36, 'TLX ST5000 ProGm 270', 'Intel&reg; Core&trade; i9 processor 14900K, Windows 11 Home Edition, Asus Z170-A From factor: ATX, AORUS Gen4 7300 SSD 1TB', '1715489140rogStrixHelios.png', 1, 4, 2, 1, 2, 2, 6, 9, 1, 4000, 3946, 1, 'Hot', '2024-05-12 04:45:40', 5),
 (38, 'JDev XloTLS666', 'Powerful gaming desktop', '1716096044desktop1.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 5000, 4600, 1, 'Hot', '2024-05-19 05:20:44', 60),
-(39, 'GLX 5000 TLS', 'Powerful Gaming Desktop PC', '1716096078desktop2.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 3000, 4600, 0, 'New', '2024-05-19 05:21:18', 12),
+(39, 'GLX 5000 TLS', 'Powerful Gaming Desktop PC', '1716096078desktop2.jpg', 1, 6, 3, 1, 1, 0, 5, 2, 1, 3000, 3050, 1, 'None', '2024-05-19 05:21:18', 12),
 (40, 'ALS4000 LinLin', 'Super powerful gaming desktop PC', '1716096129desktop5.jpg', 1, 5, 1, 1, 1, 0, 3, 2, 1, 2556, 3950, 1, 'Discount', '2024-05-19 05:22:09', 30),
 (41, 'ALS4000 ShanShan', 'Lorem ipsum 123 this is some text. Literally some text.', '1716096188desktop6.jpg', 1, 4, 2, 1, 1, 0, 5, 2, 1, 3000, 3500, 0, 'Hot', '2024-05-19 05:23:08', 30),
 (42, 'ALS4000 K', 'Powerful Gaming Desktop PC', '1716096215desktop4.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 49000, 4600, 1, 'None', '2024-05-19 05:23:35', 20),
 (43, 'JDevT XloTLS666', 'Some text, this is some text', '1716096258desktop1.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 2330, 4600, 1, 'New', '2024-05-19 05:24:18', 15),
 (44, 'JDevT XloTLS222', 'Clean', '1716096309desktop5.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 3999, 4600, 1, 'New', '2024-05-19 05:25:09', 15),
-(45, 'ALS4000 LinLin', 'Windows 11 Home, Intel Core i9-14900KF CPU, ASUS Z790 WiFi MB, GeForce RTX 4070 SUPER 12GB GPU, 32GB DDR5-6000MHz RGB RAM, 2TB M.2 NVMe SSD, iBUYPOWER 360mm RGB Liquid Cooling', '1716096371desktop1.jpg', 1, 4, 1, 1, 1, 0, 5, 2, 1, 2500, 4600, 1, 'Hot', '2024-05-19 05:26:11', 3000),
+(45, 'ALS4000 LinLin', 'Windows 11 Home, Intel Core i9-14900KF CPU, ASUS Z790 WiFi MB, GeForce RTX 4070 SUPER 12GB GPU, 32GB DDR5-6000MHz RGB RAM, 2TB M.2 NVMe SSD, iBUYPOWER 360mm RGB Liquid Cooling', '1716096371desktop1.jpg', 1, 5, 2, 1, 2, 2, 9, 2, 1, 2500, 3240, 1, 'None', '2024-05-19 05:26:11', 30),
 (46, 'JDevT XloTLS666', 'Windows 11 Home, Intel Core i9-14900KF CPU, ASUS Z790 WiFi MB, GeForce RTX 4070 SUPER 12GB GPU, 32GB DDR5-6000MHz RGB RAM, 2TB M.2 NVMe SSD, iBUYPOWER 360mm RGB Liquid Cooling', '1716096393desktop3.jpg', 1, 5, 1, 1, 1, 0, 3, 2, 1, 6000, 3950, 1, 'Hot', '2024-05-19 05:26:33', 22),
 (47, 'JDevT XloTLS666', 'This is some description.', '1716107588corsaircase1.jpg', 1, 7, 2, 2, 2, 2, 27, 2, 1, 6000, 4106, 0, 'New', '2024-05-19 08:33:08', 22);
 
@@ -649,8 +786,35 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `phone1`, `phone2`, `address`, `avatar`, `subscribed`, `is_admin`) VALUES
 (5, 'HakuHaku123', '$2y$10$1VjCaFDTAPKn7plV8towpO69zUZRQZ4q/PXFfkYqfftKmGq1se7by', 'thulinshan1234@gmail.com', '123123123', '123123123', '', '1701924974profile4.png', 0, 0),
-(6, 'admin@thu.com', '$2y$10$IFw17e309zcYQ2wAaOYJVO3D5a5u7kESMcxe71q9WbFM/oPY8gq5y', 'admin@gmail.com', '123123123', '123123123', '', '1701928854thumbnail1x1.png', 0, 1),
-(7, 'test', '$2y$10$3FCmW/2Ofsc0sOOooPPCpeVmnIKPaZj5aV85gMleUHkUgagwVbZdm', 'test@test.com', '123123123', '222222222', 'somewhere', '170248177313a2b2437efba06fdc41bad5119f9782.jpg', 0, 0);
+(6, 'admin@thu.com', '$2y$10$IFw17e309zcYQ2wAaOYJVO3D5a5u7kESMcxe71q9WbFM/oPY8gq5y', 'admin@gmail.com', '123123123', '123123123', 'null', '1701928854thumbnail1x1.png', 0, 1),
+(7, 'test', '$2y$10$3FCmW/2Ofsc0sOOooPPCpeVmnIKPaZj5aV85gMleUHkUgagwVbZdm', 'test@test.com', '123123123', '222222222', 'somewhere', '170248177313a2b2437efba06fdc41bad5119f9782.jpg', 0, 0),
+(8, 'K', '$2y$10$xbHi9XjeA5cLB/x2DkskVOtcFUU63U7gtpiGxGHqt7aO2xNgPJdaO', 'K@gmail.com', '099393920', '099292929', 'Clock Tower, London', '1721548766alisa.jpg', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_order`
+--
+
+CREATE TABLE `user_order` (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `final_price` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'ORDERED',
+  `note` varchar(255) DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_order`
+--
+
+INSERT INTO `user_order` (`id`, `userid`, `final_price`, `status`, `note`, `date`) VALUES
+(5, 5, 9330, 'DELIVERED', '', '2024-07-14 08:47:08'),
+(6, 5, 3000, 'ORDERED', '', '2024-07-14 08:49:29'),
+(7, 5, 10330, 'SUCCESS', 'That&#39;s a lot of orders.', '2024-07-14 09:26:54'),
+(8, 5, 5000, 'REJECTED', 'Just testing order status rejection. Nothing personal.', '2024-07-14 14:11:18'),
+(9, 8, 8593, 'ORDERED', NULL, '2024-07-21 08:01:10');
 
 -- --------------------------------------------------------
 
@@ -701,6 +865,12 @@ ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cart_history`
+--
+ALTER TABLE `cart_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -722,6 +892,12 @@ ALTER TABLE `cooler`
 -- Indexes for table `cpu`
 --
 ALTER TABLE `cpu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `custom_order`
+--
+ALTER TABLE `custom_order`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -755,10 +931,22 @@ ALTER TABLE `motherboard`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `operating_system`
 --
 ALTER TABLE `operating_system`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_cart`
+--
+ALTER TABLE `order_cart`
+  ADD PRIMARY KEY (`order_id`,`cart_id`);
 
 --
 -- Indexes for table `popular`
@@ -821,6 +1009,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_order`
+--
+ALTER TABLE `user_order`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -840,7 +1034,7 @@ ALTER TABLE `accessories`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=812;
 
 --
 -- AUTO_INCREMENT for table `blog`
@@ -858,6 +1052,12 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT for table `cart_history`
+--
+ALTER TABLE `cart_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -883,6 +1083,12 @@ ALTER TABLE `cooler`
 --
 ALTER TABLE `cpu`
   MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `custom_order`
+--
+ALTER TABLE `custom_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `desktop_case`
@@ -913,6 +1119,12 @@ ALTER TABLE `memory`
 --
 ALTER TABLE `motherboard`
   MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `operating_system`
@@ -978,7 +1190,13 @@ ALTER TABLE `storage`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user_order`
+--
+ALTER TABLE `user_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `wishlist`

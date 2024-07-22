@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                 $time = time();
                 $img_name = $time . $img['name'];
                 $img_tmp_name = $img['tmp_name'];
-                $img_destination_path = 'assets/images/avatar' . $img_name;
+                $img_destination_path = 'assets/images/avatar/' . $img_name;
 
                 // Validate file format
                 $allowed_files = ['png', 'jpg', 'jpeg'];

@@ -52,7 +52,7 @@ if (isset($_POST['submit']) && isset($_SESSION['user_is_admin']) && $_SESSION['u
     } elseif (!$primary_storage) {
         $_SESSION['add-prebuilt'] = "Please select a primary_storage";
     } elseif (!$secondary_storage) {
-        $secondary_storage = null;
+        $secondary_storage = 0;
     } elseif (!$power_supply) {
         $_SESSION['add-prebuilt'] = "Please select a power_supply";
     } elseif (!$desktop_case) {

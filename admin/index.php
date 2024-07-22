@@ -129,6 +129,14 @@ $blogs =  mysqli_query($connection, $query);
             </div>
         <?php endif ?>
 
+
+        <div class="bg-secondary-subtle rounded p-4 mb-5">
+            <div class="container d-flex justify-content-between py-2">
+                <h3>Order Management</h3>
+                <a class="btn btn-dark" href="./manage_order.php">Go to Order Management &#11166;</a>
+            </div>
+        </div>
+
         <div class="p-2 bg-secondary-subtle rounded py-2 mb-5">
             <div class="container  py-2">
                 <h3>Product Management</h3>

@@ -74,11 +74,15 @@ if (isset($_SESSION['user-id'])) {
                                 Desktop PCs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="<?= ROOT_URL ?>/products/custom_builder.php?config=intel">Custom PC builder <span class="badge bg-danger">New</span> </a></li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= ROOT_URL ?>/products/custom_builder.php?config=intel">Custom PC builder <span class="badge bg-danger">New</span> </a>
+                                </li>
 
                             </ul>
                         </li>
@@ -115,10 +119,8 @@ if (isset($_SESSION['user-id'])) {
                                 <li><a class="dropdown-item" href="#">FAQs</a></li>
                             </ul>
                         </li>
-
-
                     </ul>
-                    <div class="d-flex" role="search">
+                    <div class="d-flex">
                         <?php if (isset($_SESSION['user-id'])) : ?>
                             <div class="nav-item me-2">
                                 <!-- notification button -->
@@ -146,9 +148,7 @@ if (isset($_SESSION['user-id'])) {
                                 <a href="<?= ROOT_URL ?>signout.php" style="text-decoration: none;" class="btn btn-outline-dark opacity-75">Logout</a>
                             </div>
                         <?php else : ?>
-                            <li class="nav-item">
-                                <a href="<?= ROOT_URL ?>signin.php" class="btn btn-info text-white">Signin</a>
-                            </li>
+                            <a href="<?= ROOT_URL ?>signin.php" class="btn btn-info text-white">Signin</a>
                         <?php endif ?>
                     </div>
                 </div>
