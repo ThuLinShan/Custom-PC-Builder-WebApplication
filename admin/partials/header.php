@@ -14,6 +14,20 @@ $id = filter_var($_SESSION['user-id'], FILTER_SANITIZE_NUMBER_INT);
 $query = "SELECT avatar FROM users WHERE id=$id";
 $result = mysqli_query($connection, $query);
 $avatar = mysqli_fetch_assoc($result);
+
+
+$query = "SELECT * FROM notification WHERE userid=$id";
+$result = mysqli_query($connection, $query);
+$noti_items = mysqli_fetch_assoc($result);
+
+$query = "SELECT COUNT(*) AS count FROM notification WHERE userid=$id AND status = 0";
+$result = mysqli_query($connection, $query);
+$assoc = mysqli_fetch_assoc($result);
+$noti_count = $assoc['count'];
+
+$query = "SELECT * FROM notification WHERE userid=$id AND status = 0";
+$noti_assocs = mysqli_query($connection, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +67,15 @@ $avatar = mysqli_fetch_assoc($result);
                                 Desktop PCs
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= ROOT_URL . "products/prebuilts.php?page=1&size=8" ?>">Prebuilt PCs</a>
+                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Custom PC builder <span class="badge bg-danger">New</span> </a></li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= ROOT_URL ?>/products/custom_builder.php?config=intel">Custom PC builder <span class="badge bg-danger">New</span> </a>
+                                </li>
 
                             </ul>
                         </li>
@@ -66,15 +84,14 @@ $avatar = mysqli_fetch_assoc($result);
                                 Laptops
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">Gaming Laptops</a></li>
-                                <li><a class="dropdown-item" href="#">Office use</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8" ?>">All Laptops</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Budget Laptops</a></li>
-                                <li><a class="dropdown-item" href="#">Most popular ones</a></li>
-                                <li><a class="dropdown-item" href="#">Budget Laptops <span class="badge bg-danger">Hot</span> </a></li>
-                                <li><a class="dropdown-item" href="#">Promotions <span class="badge bg-danger">Hot</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Gaming'" ?>">Gaming Laptops <span class="badge bg-danger">Hot</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Office'" ?>">Office Laptops</a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Student'" ?>">Student Laptops <span class="badge bg-success">Sweet</span> </a></li>
+                                <li><a class="dropdown-item" href="<?= ROOT_URL . "products/laptops.php?page=1&size=8&category='Professional'" ?>">Professional</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -99,7 +116,13 @@ $avatar = mysqli_fetch_assoc($result);
                         <?php if (isset($_SESSION['user-id'])) : ?>
                             <li class="nav-item me-2">
                                 <!-- notification button -->
-                                <button type="button" class="btn btn-outline-dark me-3" id="liveToastBtn"><i class="fa-solid fa-bell"></i><span class="ms-1 badge bg-info">5</span></button>
+                                <button type="button" class="btn btn-outline-dark" id="liveToastBtn"><i class="fa-solid fa-bell"></i>
+                                    <?php if ($noti_count > 0) : ?>
+                                        <span class="ms-1 badge bg-info">
+                                            <?= $noti_count ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </button>
                                 <!-- profile -->
                                 <a href="<?= ROOT_URL ?>admin" class="me-3" style="text-decoration: none;">
                                     <img src="<?= ROOT_URL . '/assets/images/avatars/' . $avatar['avatar'] ?>" style="border-radius: 50%; border:solid black 2px; padding:2px;object-fit: cover;" alt="" width="50px">

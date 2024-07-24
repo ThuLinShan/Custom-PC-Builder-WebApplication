@@ -68,10 +68,6 @@ $banner_loop = 1;
                     <div>
                         <div class="card border-3 text-center">
                             <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_main['img'] ?>" class="card-img" alt="...">
-                            <div class="card-img-overlay text-white">
-                                <h5 class="card-title bg-info-subtle text-dark p-2 rounded">Card title</h5>
-                                <p class="card-text bg-info-subtle text-dark p-2 rounded">This is some text and this is more text.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,26 +76,17 @@ $banner_loop = 1;
                         <div class="col-md-6">
                             <div class="card border-3 text-center">
                                 <img src="<?= ROOT_URL . 'assets/images/banners/' . $sub_main['img'] ?>" class="card-img" alt="...">
-                                <div class="card-img-overlay text-white">
-                                    <h5 class="card-title bg-info-subtle text-dark p-2 rounded">Card title</h5>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 ">
                             <div class="card border-3 text-center">
                                 <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_mini1['img'] ?>" class="card-img" alt="...">
-                                <div class="card-img-overlay text-white">
-                                    <h5 class="card-title bg-info-subtle text-dark p-2 rounded">Card title</h5>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-3">
                         <div class="card border-3 text-center">
                             <img src="<?= ROOT_URL . 'assets/images/banners/' . $secondary_mini2['img'] ?>" class="card-img" alt="...">
-                            <div class="card-img-overlay text-white">
-                                <h5 class="card-title bg-info-subtle text-dark p-2 rounded">Card title</h5>
-                            </div>
                         </div>
                     </div>
                 </div>

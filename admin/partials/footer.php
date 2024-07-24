@@ -71,16 +71,30 @@
     <!-- footer end -->
 
     <!-- toast notification -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="https://placehold.co/50x50" class="rounded me-2">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3 shadow-lg">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div class="toast-header p-3 bg-dark text-white">
+                <i class="fa-solid fa-bell"></i>
+                <strong class="me-auto mx-3">Notifications</strong>
+                <small>Total: <span><?= $noti_count ?></span></small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
-                Hello, world! This is a toast message.
+            <div class="toast-body py-2" style="overflow-y: scroll; height: 50vh; opacity: 100%; background-color: white;">
+
+                <?php if (isset(($_SESSION['user-id']))) : ?>
+                    <?php while ($noti_assoc = mysqli_fetch_assoc($noti_assocs)) : ?>
+                        <div class="d-flex justify-content-between">
+                            <p class="fw-bold"><?= $noti_assoc['header'] ?></p>
+                            <small>
+                                <?= date("M d, Y - h:i a", strtotime($noti_assoc['date'])) ?>
+                            </small>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 border-1 border-bottom border-secondary-subtle">
+                            <p><?= $noti_assoc['description'] ?></p>
+                            <a class="link-info" href="<?= ROOT_URL . $noti_assoc['link'] ?>">View</a>
+                        </div>
+                    <?php endwhile ?>
+                <?php endif ?>
             </div>
         </div>
     </div>
