@@ -13,6 +13,7 @@ if (isset($_POST['submit'])) {
     $confirmpassword    = filter_var($_POST['confirmpassword'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $img                = $_FILES['img'];
 
+    //another bitch comment
     // Check if inputs are there
     if (!$phone1) {
         $_SESSION['signup'] = "Please enter your Phone number";
