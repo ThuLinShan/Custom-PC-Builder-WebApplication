@@ -33,6 +33,8 @@ if (mysqli_num_rows($result) == 1) {
     $secondary_mini2 = mysqli_fetch_assoc($result);
 }
 
+//bitch comment
+
 
 $banner_loop = 1;
 ?>
