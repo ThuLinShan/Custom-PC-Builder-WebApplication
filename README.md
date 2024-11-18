@@ -11,8 +11,10 @@
 
 <h3>🛠 Tech Stacks</h3>
 
-- 💻 &nbsp; PHP | HTML | CSS | Javascript | SQL  
+- 💻 &nbsp; PHP | HTML | CSS | Javascript | SQL  | Bootstrap
 -  &nbsp; Xampp Server | PhpMyadmin | Postman
+
+<h3>Design Tools</h3>
 - 🖥 &nbsp; Adobe Photoshop | Inkscape
 
 <br>
